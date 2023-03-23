@@ -1,34 +1,25 @@
 package org.hcmus.datn;
 
+import okhttp3.Credentials;
+import okhttp3.FormBody;
+import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.HttpService;
-import org.hcmus.datn.utils.Utils;
+import org.hcmus.datn.services.ScannerService;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 public class Main {
+    static final String _HOST = "https://af2c-54-151-141-45.ap.ngrok.io";
+    static final String _USERNAME = "admin";
+    static final String _PASSWORD = "123456";
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-        String requestUrl="https://www.clickdimensions.com/links/TestPDFfile.pdf";
-        Response response= HttpService.excuteRequest(HttpService.newGetRequest(requestUrl,new HashMap<>(),new HashMap<>()));
-        if(response!=null)
-        {
-
-            ResponseBody body=response.body();
-                System.out.println(body.contentType());
-                System.out.println(body.contentLength());
-                String destinationPath="E:\\temp\\a";
-            try {
-
-                FileHandler.getFileFromStream(body.byteStream(),destinationPath, Utils.getFileNameFromUrl(requestUrl));
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
+        ScannerService scannerService = new ScannerService("http://localhost:9000", _USERNAME, _PASSWORD);
+//        System.out.println(scannerService.createNewProject("Api_Java"));
+//        System.out.println(scannerService.generateNewToken("Api_Java"));
+        System.out.println( ScannerService.generateID("19120721","CSC0001"));
     }
+
 }
