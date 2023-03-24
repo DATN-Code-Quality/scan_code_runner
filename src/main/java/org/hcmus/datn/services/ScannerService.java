@@ -4,6 +4,7 @@ import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.hcmus.datn.utils.ScanResultStatus;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -17,6 +18,10 @@ public class ScannerService {
     private String username = "";
     private String password = "";
 
+    static final String SUCCESS_MSG = "EXECUTION SUCCESS";
+    static final String ERROR_EXCUTION_MSG = "Error during SonarScanner execution";
+    static final String ERROR = "ERROR";
+
     private HashMap<String, String> headers = new HashMap<>();
 
     public ScannerService(String hostURL, String username, String password) {
@@ -27,28 +32,53 @@ public class ScannerService {
         headers.put("Authorization", Credentials.basic(username, password));
     }
 
-    public void scanProject(String projectPath, String projectKey, String token) {
-        projectKey = "API";
-        token = "439841a5cc19b0f477bb761bc7b02e2c5acd54a8";
+    public ScanResultStatus scanProject(String projectPath, String projectKey, String token) {
+        ScanResultStatus result = ScanResultStatus.UNKNOWN;
         ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "d: && cd " + projectPath + " && sonar-scanner.bat -D\"sonar.projectKey=" + projectKey +
-                "\" -D\"sonar.sources=.\" -D\"sonar.host.url=http://localhost:9000\" -D\"sonar.login=" + token + "\"");
+                "cmd.exe", "/c", String.format("cd %s && sonar-scanner.bat -D\"sonar.projectKey=%s\" -D\"sonar.sources=.\" -D\"sonar.host.url=%s\" -D\"sonar.login=%s\"", projectPath, projectKey, hostURL, token));
         builder.redirectErrorStream(true);
+
         Process p = null;
+        BufferedReader r=null;
         try {
             p = builder.start();
-            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            r = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while (true) {
                 line = r.readLine();
                 if (line == null) {
                     break;
                 }
+                if (line.contains(ERROR)) {
+                    if(line.contains(ERROR_EXCUTION_MSG))
+                    {
+                        result = ScanResultStatus.ERROR;
+                        break;
+                    }
+
+
+                }
+                if (line.contains(SUCCESS_MSG)) {
+                    result = ScanResultStatus.SUCCESS;
+
+                }
                 System.out.println(line);
+                if(r!=null)
+                {
+                    try {
+                        r.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
+        return result;
     }
 
     public boolean createNewProject(String projectName) {
@@ -82,17 +112,15 @@ public class ScannerService {
         formBuilder.add("login", username);
 
         Request createToken = HttpService.newPostRequest(
-                hostURL+"/api/user_tokens/generate", formBuilder.build(), params, headers);
+                hostURL + "/api/user_tokens/generate", formBuilder.build(), params, headers);
         Response res = HttpService.excuteRequest(createToken);
         int statusCode = res.code();
         try {
-            if(statusCode==200)
-            {
+            if (statusCode == 200) {
                 JSONObject resBody = new JSONObject(res.body().string());
-                String token=resBody.getString("token");
+                String token = resBody.getString("token");
                 //invalid respond json
-                if(token==null)
-                {
+                if (token == null) {
                     return "";
                 }
                 return token;
@@ -104,6 +132,7 @@ public class ScannerService {
     }
 
     public static String generateID(String userID, String assignmentID) {
+
         return userID + "_" + assignmentID + "_" + new Date().getTime();
     }
 
@@ -115,3 +144,4 @@ public class ScannerService {
         this.hostURL = hostURL;
     }
 }
+
