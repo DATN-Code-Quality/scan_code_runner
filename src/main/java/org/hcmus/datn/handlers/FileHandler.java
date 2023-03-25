@@ -43,7 +43,11 @@ public class FileHandler {
             ZipEntry zipEntry = zis.getNextEntry();
             while (zipEntry != null) {
                 File newFile = newFile(destDir, zipEntry);
-                filePath= newFile.getAbsolutePath();
+                if(filePath.isEmpty())
+                {
+                    filePath= newFile.getAbsolutePath();
+                }
+
                 System.out.println("Extracting " + zipEntry.getName() + "...");
                 if (zipEntry.isDirectory()) {
                     if (!newFile.isDirectory() && !newFile.mkdirs()) {

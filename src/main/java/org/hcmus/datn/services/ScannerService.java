@@ -4,7 +4,7 @@ import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.hcmus.datn.utils.ScanResultStatus;
+import org.hcmus.datn.utils.ScanResult;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -32,8 +32,8 @@ public class ScannerService {
         headers.put("Authorization", Credentials.basic(username, password));
     }
 
-    public ScanResultStatus scanProject(String projectPath, String projectKey, String token) {
-        ScanResultStatus result = ScanResultStatus.UNKNOWN;
+    public ScanResult scanProject(String projectPath, String projectKey, String token) {
+        ScanResult result = ScanResult.UNKNOWN;
         ProcessBuilder builder = new ProcessBuilder(
                 "cmd.exe", "/c", String.format("cd %s && sonar-scanner.bat -D\"sonar.projectKey=%s\" -D\"sonar.sources=.\" -D\"sonar.host.url=%s\" -D\"sonar.login=%s\"", projectPath, projectKey, hostURL, token));
         builder.redirectErrorStream(true);
@@ -53,28 +53,29 @@ public class ScannerService {
                 if (line.contains(ERROR)) {
                     if(line.contains(ERROR_EXCUTION_MSG))
                     {
-                        result = ScanResultStatus.ERROR;
+                        result = ScanResult.ERROR;
                         break;
                     }
 
 
                 }
                 if (line.contains(SUCCESS_MSG)) {
-                    result = ScanResultStatus.SUCCESS;
+                    result = ScanResult.SUCCESS;
 
                 }
                 System.out.println(line);
-                if(r!=null)
-                {
-                    try {
-                        r.close();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+        if(r!=null)
+        {
+            try {
+                r.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 

@@ -1,6 +1,6 @@
 package org.hcmus.datn.utils;
 
-public enum ScanResultStatus {
+public enum ScanResult {
     SUCCESS,
     ERROR,
     UNKNOWN,
