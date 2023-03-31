@@ -1,25 +1,24 @@
 package org.hcmus.datn;
 
-import okhttp3.Response;
-import org.hcmus.datn.handlers.FileHandler;
-import org.hcmus.datn.services.HttpService;
+import com.google.gson.JsonObject;
+import org.hcmus.datn.common.Constant;
+import org.hcmus.datn.services.DatabaseService;
 import org.hcmus.datn.services.ScannerService;
-import org.hcmus.datn.utils.ScanResult;
+import org.hcmus.datn.temporal.model.request.Project;
+import org.hcmus.datn.temporal.workflow.ProjectWorkflow;
 import org.hcmus.datn.worker.SonarWorker;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.text.ParseException;
+import java.util.Map;
 
 public class Main {
-    static final String _HOST = "https://af2c-54-151-141-45.ap.ngrok.io";
-    static final String _USERNAME = "admin";
-    static final String _PASSWORD = "123456";
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         //test file template
-        String userID = "19120721";
-        String assignmentID = "ASS_0001";
+        String userID = "01f5d8de-a0c8-4b19-aa10-9e15f9a9a29c";
+        String assignmentID = "0293aa94-3e86-4312-b19c-a618131b4fd8";
         String submissionURL = "https://codeload.github.com/anhvinhphan659/CountReact/zip/refs/heads/master";
         //init worker and set information to run
         SonarWorker worker=new SonarWorker();
