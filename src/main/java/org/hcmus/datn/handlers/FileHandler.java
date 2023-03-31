@@ -28,10 +28,33 @@ public class FileHandler {
     public static boolean deleteFile(String filePath)
     {
         File file=new File(filePath);
-        if(file.exists()){
+        if(!file.exists())
+        {
+            return false;
+        }
+        if(file.isFile())
+        {
             return file.delete();
         }
-        return false;
+
+        File[] files=file.listFiles();
+        boolean result=true;
+        //delete all children
+        for(int i=0;i<files.length;i++)
+        {
+            File f=files[i];
+            boolean fResult=false;
+            if(f.isDirectory())
+            {
+                fResult=deleteFile(f.getPath());
+            }
+            else {
+                fResult=f.delete();
+            }
+            result=result&&fResult;
+        }
+        //delete current folder
+        return result&&file.delete();
     }
 
     public static String extractArchiveFile(String zipPath, String desPath) {
