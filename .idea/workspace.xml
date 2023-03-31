@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0a20bca-d451-4fc1-8eb0-452d0f04c779" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/common/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/common/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/DatabaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp/CountReact-master/.scannerwork/report-task.txt" beforeDir="false" afterPath="$PROJECT_DIR$/temp/CountReact-master/.scannerwork/report-task.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/utils/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +93,7 @@
       <updated>1679536323483</updated>
       <workItem from="1680165657899" duration="5231000" />
       <workItem from="1680189334472" duration="9117000" />
-      <workItem from="1680247182637" duration="15197000" />
+      <workItem from="1680247182637" duration="15479000" />
     </task>
     <servers />
   </component>

@@ -11,11 +11,28 @@ public class Utils {
     }
 
     public static Date convertDateFromString(String day) throws ParseException {
-        SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        if(day != null){
+        if (day != null) {
             return formatter.parse((day).replace('T', ' '));
         }
         return null;
+    }
+    //make sure driveURL is link of specified file
+    public static String getLinkFileFromGGDriveShare(String driveURL)
+    {
+        String url="https://drive.google.com/uc?id=";
+        String fileID="";
+        String[] elements=url.split("/");
+
+        for(int i=0;i<elements.length;i++)
+        {
+            if(elements[i].compareTo("d")==0)
+            {
+                fileID=elements[i+1];
+                break;
+            }
+        }
+        return url+fileID;
     }
 }
