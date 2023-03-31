@@ -1,6 +1,0 @@
-projectKey=01f5d8de-a0c8-4b19-aa10-9e15f9a9a29c_0293aa94-3e86-4312-b19c-a618131b4fd8_1680262401867
-serverUrl=https://af2c-54-151-141-45.ap.ngrok.io
-serverVersion=8.9.10.61524
-dashboardUrl=https://af2c-54-151-141-45.ap.ngrok.io/dashboard?id=01f5d8de-a0c8-4b19-aa10-9e15f9a9a29c_0293aa94-3e86-4312-b19c-a618131b4fd8_1680262401867
-ceTaskId=AYc3ccT9jmVwjartETss
-ceTaskUrl=https://af2c-54-151-141-45.ap.ngrok.io/api/ce/task?id=AYc3ccT9jmVwjartETss
