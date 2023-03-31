@@ -1,9 +1,12 @@
 package org.hcmus.datn.worker;
 
 import okhttp3.Response;
+import org.hcmus.datn.common.Constant;
 import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.HttpService;
 import org.hcmus.datn.services.ScannerService;
+import org.hcmus.datn.temporal.workflow.ProjectWorkflow;
+import org.hcmus.datn.temporal.model.request.Project;
 import org.hcmus.datn.utils.ScanResult;
 
 import java.io.File;
@@ -22,7 +25,7 @@ public class SonarWorker {
     {
         //TODO: Replace with other config later
         //generate service
-        ScannerService scannerService = new ScannerService("http://localhost:9000", "admin", "123456");
+        ScannerService scannerService = new ScannerService(Constant.SONARQUBE_HOST, Constant.SONARQUBE_USERNAME, Constant.SONARQUBE_PASSWORD);
         //create temp folder to handle
         File tempFolder = new File("temp");
         if (!tempFolder.exists()) {
@@ -65,6 +68,10 @@ public class SonarWorker {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        // Save project and result in to DataBase
+        ProjectWorkflow.createProject(new Project(projectId, userID, assignmentID));
+
         //clean up folder
         if(tempFolder.exists())
         {

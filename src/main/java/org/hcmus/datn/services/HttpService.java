@@ -25,9 +25,12 @@ public class HttpService {
 
     private static Request.Builder newRequestBuilder(String url, Map<String, String> queryParams, Map<String, String> headers) {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
-        for (String param : queryParams.keySet()) {
-            urlBuilder.addQueryParameter(param, queryParams.get(param));
+        if(queryParams != null){
+            for (String param : queryParams.keySet()) {
+                urlBuilder.addQueryParameter(param, queryParams.get(param));
+            }
         }
+
         String requestURL = urlBuilder.toString();
 
         Request.Builder requestBuiler = new Request.Builder().url(requestURL);

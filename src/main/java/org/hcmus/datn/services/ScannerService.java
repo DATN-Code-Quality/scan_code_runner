@@ -1,9 +1,13 @@
 package org.hcmus.datn.services;
 
+import com.google.gson.JsonObject;
 import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.hcmus.datn.common.Constant;
+import org.hcmus.datn.temporal.model.request.Result;
+import org.hcmus.datn.utils.JsonUtils;
 import org.hcmus.datn.utils.ScanResult;
 import org.json.JSONObject;
 
@@ -12,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ScannerService {
     private String hostURL = "";
@@ -143,6 +148,28 @@ public class ScannerService {
 
     public void setHostURL(String hostURL) {
         this.hostURL = hostURL;
+    }
+
+
+    public Result getResultOverview(String projectId, String projectKey) throws IOException {
+        Result result = new Result(projectId);
+        Map<String, Integer> map = new HashMap<>();
+
+        for(int i = 0; i < Constant.ISSUE_TYPES.length; i++){
+            String apiPath = String.format(Constant.GET_RESULT_API, projectKey, Constant.ISSUE_TYPES[i]);
+            Request getResult = HttpService.newGetRequest(apiPath, null, headers);
+            Response res = HttpService.excuteRequest(getResult);
+
+            int statusCode = res.code();
+            if (statusCode == 200) {
+                JsonObject obj = JsonUtils.toObject(res.body().string());
+                map.put(Constant.ISSUE_TYPES[i], obj.get("total").getAsInt());
+            }
+        }
+        result.setSmells(map.get(Constant.ISSUE_TYPES[0]));
+        result.setBugs(map.get(Constant.ISSUE_TYPES[1]));
+        result.setVulnerabilities(map.get(Constant.ISSUE_TYPES[2]));
+        return result;
     }
 }
 

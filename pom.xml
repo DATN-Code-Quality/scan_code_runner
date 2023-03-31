@@ -27,6 +27,14 @@
             <version>20220320</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.temporal/temporal-sdk -->
+        <dependency>
+            <groupId>io.temporal</groupId>
+            <artifactId>temporal-sdk</artifactId>
+            <version>1.19.1</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

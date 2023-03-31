@@ -1,0 +1,6 @@
+projectKey=01f5d8de-a0c8-4b19-aa10-9e15f9a9a29c_ASS_0001_1680197484196
+serverUrl=https://af2c-54-151-141-45.ap.ngrok.io
+serverVersion=8.9.10.61524
+dashboardUrl=https://af2c-54-151-141-45.ap.ngrok.io/dashboard?id=01f5d8de-a0c8-4b19-aa10-9e15f9a9a29c_ASS_0001_1680197484196
+ceTaskId=AYczk1i9jmVwjartETnH
+ceTaskUrl=https://af2c-54-151-141-45.ap.ngrok.io/api/ce/task?id=AYczk1i9jmVwjartETnH
