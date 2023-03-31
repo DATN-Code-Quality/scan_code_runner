@@ -12,6 +12,7 @@ import org.hcmus.datn.utils.ScanResult;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
@@ -154,10 +155,14 @@ public class ScannerService {
     public Result getResultOverview(String projectId, String projectKey) throws IOException {
         Result result = new Result(projectId);
         Map<String, Integer> map = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("componentKeys", projectKey);
 
         for(int i = 0; i < Constant.ISSUE_TYPES.length; i++){
-            String apiPath = String.format(Constant.GET_RESULT_API, projectKey, Constant.ISSUE_TYPES[i]);
-            Request getResult = HttpService.newGetRequest(apiPath, null, headers);
+            params.put("types",Constant.ISSUE_TYPES[i] );
+
+//            String apiPath = String.format(Constant.GET_RESULT_API, projectKey, Constant.ISSUE_TYPES[i]);
+            Request getResult = HttpService.newGetRequest(Constant.GET_RESULT_API, params, headers);
             Response res = HttpService.excuteRequest(getResult);
 
             int statusCode = res.code();

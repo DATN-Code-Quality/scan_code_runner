@@ -16,21 +16,20 @@ import java.text.ParseException;
 import java.util.LinkedHashMap;
 
 public class DatabaseService {
-    public static void addProjectAndResult(ScannerService scannerService, Project project) throws IOException, ParseException {
+    public static void addProjectAndResult(ScannerService scannerService, Project project) throws IOException, ParseException, InterruptedException {
         Response projectResponse =  ProjectWorkflow.createProject(project);
 
         if(projectResponse.getError() == 0){
+
             ResponseProject savedproject = ResponseProject.toResponseProject((LinkedHashMap<String, Object>) projectResponse.getData());
 
+            Thread.sleep(5000);
             Result result = scannerService.getResultOverview( savedproject.getId(), savedproject.getKey());
 
             Response resultResponse = ResultWorkflow.createProject(result);
             if (resultResponse.getError() == 0){
                 ResponseResult savedResult = ResponseResult.toResponseResult((LinkedHashMap<String, Object>) resultResponse.getData());
-                System.out.println(savedproject.toString());
-                System.out.println(savedResult.toString());
             }
-
         }
 
 

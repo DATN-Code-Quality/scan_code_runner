@@ -5,7 +5,8 @@ public class Constant {
     public static final String SONARQUBE_USERNAME = "admin";
     public static final String SONARQUBE_PASSWORD = "123456";
     public static final String GENERATE_TOKEN_API = SONARQUBE_HOST + "/api/user_tokens/generate";
-    public static final String GET_RESULT_API = SONARQUBE_HOST + "/api/issues/search?componentKeys=%s&types=%s";
+//    public static final String GET_RESULT_API = SONARQUBE_HOST + "/api/issues/search?componentKeys=%s&types=%s";
+    public static final String GET_RESULT_API = SONARQUBE_HOST + "/api/issues/search";
     public static final String[] ISSUE_TYPES = { "CODE_SMELL", "BUG", "VULNERABILITY"};
     public static final String[] ISSUE_TYPES_FIELDS = { "smells", "bugs", "vulnerabilities"};
 
