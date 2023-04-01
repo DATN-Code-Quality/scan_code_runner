@@ -24,7 +24,7 @@ public class SonarWorker {
     private String submissionURL;
 
     ///Please ensure userID, assignmentID, submissionURL is initialize and valid
-    public ResponseObject run() throws IOException, ParseException, InterruptedException {
+    public ResponseObject run() {
         //TODO: Replace with other config later
         //generate service
         ScannerService scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"));
@@ -49,11 +49,13 @@ public class SonarWorker {
 
             boolean projectCreated = scannerService.createNewProject(projectId);
             if (!projectCreated) {
-                throw new Exception("Error create new project Sonarqube");
+                return new ResponseObject(ErrorCode.FAILED.getValue(), "Error create new project Sonarqube");
+//                throw new Exception("Error create new project Sonarqube");
             }
             String token = scannerService.generateNewToken(projectId);
             if (token.isEmpty()) {
-                throw new Exception("Error generate token Sonarqube");
+                return new ResponseObject(ErrorCode.FAILED.getValue(), "Error generate token Sonarqube");
+//                throw new Exception("Error generate token Sonarqube");
             }
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
@@ -66,6 +68,7 @@ public class SonarWorker {
             }
 
         } catch (IOException e) {
+
             return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
 //            throw new RuntimeException(e);
         } catch (Exception e) {

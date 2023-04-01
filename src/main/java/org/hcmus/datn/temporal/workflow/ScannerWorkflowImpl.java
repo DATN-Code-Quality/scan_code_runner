@@ -28,7 +28,7 @@ public class ScannerWorkflowImpl implements ScannerWorkflow{
     private final ScannerActivities scannerActivities = Workflow.newActivityStub(ScannerActivities.class, defaultActivityOptions);
 
     @Override
-    public ResponseObject scanCode(Submission submission) throws IOException, ParseException, InterruptedException {
+    public ResponseObject scanCode(Submission submission)  {
         return scannerActivities.scanCode(submission);
     }
 }

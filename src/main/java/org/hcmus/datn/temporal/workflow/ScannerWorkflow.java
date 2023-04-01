@@ -10,6 +10,6 @@ import java.text.ParseException;
 
 @WorkflowInterface
 public interface ScannerWorkflow {
-    @WorkflowMethod
-    public ResponseObject scanCode(Submission submission) throws IOException, ParseException, InterruptedException;
+    @WorkflowMethod()
+    public ResponseObject scanCode(Submission submission);
 }

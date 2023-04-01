@@ -140,7 +140,6 @@ public class DatabaseService implements Runnable {
 
             Thread.sleep(20000);
             Result result = scannerService.getResultOverview( savedProject.getId(), savedProject.getKey());
-            System.out.println(result.toString());
 
             Result savedResult = DatabaseService.createResult(result);
 

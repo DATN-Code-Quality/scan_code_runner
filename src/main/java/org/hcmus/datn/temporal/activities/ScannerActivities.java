@@ -10,6 +10,6 @@ import java.text.ParseException;
 
 @ActivityInterface
 public interface ScannerActivities {
-    @ActivityMethod
-    public ResponseObject scanCode(Submission submission) throws IOException, ParseException, InterruptedException;
+    @ActivityMethod()
+    public ResponseObject scanCode(Submission submission) ;
 }
