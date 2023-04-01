@@ -1,16 +1,9 @@
 package org.hcmus.datn;
 
-import com.google.gson.JsonObject;
-import org.hcmus.datn.common.Constant;
-import org.hcmus.datn.services.DatabaseService;
-import org.hcmus.datn.services.ScannerService;
-import org.hcmus.datn.temporal.model.request.Project;
-import org.hcmus.datn.temporal.workflow.ProjectWorkflow;
 import org.hcmus.datn.worker.SonarWorker;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Map;
 
 public class Main {
 
@@ -27,7 +20,6 @@ public class Main {
         worker.setSubmissionURL(submissionURL);
         //call worker to run
         worker.run();
+
     }
-
-
 }

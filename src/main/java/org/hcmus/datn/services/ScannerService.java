@@ -6,7 +6,7 @@ import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.hcmus.datn.common.Constant;
-import org.hcmus.datn.temporal.model.request.Result;
+import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.JsonUtils;
 import org.hcmus.datn.utils.ScanResult;
 import org.json.JSONObject;
@@ -154,15 +154,17 @@ public class ScannerService {
 
     public Result getResultOverview(String projectId, String projectKey) throws IOException {
         Result result = new Result(projectId);
+
         Map<String, Integer> map = new HashMap<>();
+
         HashMap<String, String> params = new HashMap<>();
         params.put("componentKeys", projectKey);
 
         for(int i = 0; i < Constant.ISSUE_TYPES.length; i++){
             params.put("types",Constant.ISSUE_TYPES[i] );
 
-//            String apiPath = String.format(Constant.GET_RESULT_API, projectKey, Constant.ISSUE_TYPES[i]);
             Request getResult = HttpService.newGetRequest(Constant.GET_RESULT_API, params, headers);
+            System.out.println(getResult);
             Response res = HttpService.excuteRequest(getResult);
 
             int statusCode = res.code();
@@ -174,6 +176,7 @@ public class ScannerService {
         result.setSmells(map.get(Constant.ISSUE_TYPES[0]));
         result.setBugs(map.get(Constant.ISSUE_TYPES[1]));
         result.setVulnerabilities(map.get(Constant.ISSUE_TYPES[2]));
+
         return result;
     }
 }

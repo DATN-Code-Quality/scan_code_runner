@@ -18,6 +18,15 @@ public class Utils {
         }
         return null;
     }
+
+    public static String formatdate(Date day) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        if (day != null) {
+            return formatter.format(day);
+        }
+        return null;
+    }
     //make sure driveURL is link of specified file
     public static String getLinkFileFromGGDriveShare(String driveURL)
     {
