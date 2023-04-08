@@ -40,3 +40,4 @@ build/
 /src/main/java/test/
 .idea/workspace.xml
 out/artifacts/SonarqubeRunner/SonarqubeRunner.jar
+/out/

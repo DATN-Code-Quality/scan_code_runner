@@ -60,7 +60,6 @@ public class SonarWorker {
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
                 System.out.println("Extract folder path: " + extractedFolderPath);
-
                 ScanResult result= scannerService.scanProject(extractedFolderPath, projectId, token);
                 System.out.println(result);
 

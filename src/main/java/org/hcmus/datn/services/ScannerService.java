@@ -9,6 +9,7 @@ import org.hcmus.datn.common.Constant;
 import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.JsonUtils;
 import org.hcmus.datn.utils.ScanResult;
+import org.hcmus.datn.worker.SonarConfig;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -40,8 +41,20 @@ public class ScannerService {
 
     public ScanResult scanProject(String projectPath, String projectKey, String token) {
         ScanResult result = ScanResult.UNKNOWN;
+        //create config file
+        SonarConfig sonarConfig=new SonarConfig();
+        sonarConfig.setProjectKey(projectKey);
+        sonarConfig.setLogin(token);
+        sonarConfig.setHostUrl(hostURL);
+        try {
+            System.out.println("Current folder path: "+projectPath);
+            sonarConfig.writeConfigToFile(projectPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        //call terminal to run
         ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", String.format("cd %s && sonar-scanner.bat -D\"sonar.projectKey=%s\" -D\"sonar.sources=.\" -D\"sonar.host.url=%s\" -D\"sonar.login=%s\"", projectPath, projectKey, hostURL, token));
+                "cmd.exe", "/c", String.format("cd %s && sonar-scanner.bat", projectPath));
         builder.redirectErrorStream(true);
 
         Process p = null;
@@ -62,7 +75,6 @@ public class ScannerService {
                         result = ScanResult.ERROR;
                         break;
                     }
-
 
                 }
                 if (line.contains(SUCCESS_MSG)) {
@@ -140,7 +152,8 @@ public class ScannerService {
 
     public static String generateID(String userID, String assignmentID) {
 
-        return userID + "_" + assignmentID + "_" + new Date().getTime();
+//        return userID + "_" + assignmentID + "_" + new Date().getTime();
+        return userID + "_" + assignmentID;
     }
 
     public String getHostURL() {
