@@ -1,12 +1,19 @@
 package org.hcmus.datn.temporal.model.response;
 
+import jakarta.persistence.*;
 import org.hcmus.datn.utils.Utils;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-public class ResponseResult {
+@Entity()
+@Table(name = "result")
+public class Result {
+    @Id
+    @UuidGenerator()
     private String id;
     private String projectId;
     private int smells;
@@ -15,10 +22,14 @@ public class ResponseResult {
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
-    public ResponseResult() {
+//    @ManyToOne(targetEntity = ResponseProject.class,fetch = FetchType.LAZY)
+//    @JoinColumn(name="projectId",referencedColumnName="id")
+//    private ResponseProject project;
+
+    public Result() {
     }
 
-    public ResponseResult(String id, String projectId,  int smells, int bugs, int vulnerabilities, Date createdAt, Date updatedAt, Date deletedAt) {
+    public Result(String id, String projectId, int smells, int bugs, int vulnerabilities, Date createdAt, Date updatedAt, Date deletedAt) {
         this.id = id;
         this.projectId = projectId;
         this.bugs = bugs;
@@ -29,12 +40,16 @@ public class ResponseResult {
         this.deletedAt = deletedAt;
     }
 
-    public ResponseResult(String projectId, int bugs, int vulnerabilities, int smells) {
+    public Result(String projectId, int bugs, int vulnerabilities, int smells) {
         this.projectId = projectId;
         this.bugs = bugs;
         this.vulnerabilities = vulnerabilities;
         this.smells = smells;
     }
+    public Result(String projectId) {
+        this.projectId = projectId;
+    }
+
     public String getProjectId() {
         return projectId;
     }
@@ -98,8 +113,16 @@ public class ResponseResult {
         this.deletedAt = deletedAt;
     }
 
-    public static ResponseResult toResponseResult(LinkedHashMap<String, Object> map) throws ParseException {
-        return new ResponseResult(
+//    public ResponseProject getProject() {
+//        return project;
+//    }
+//
+//    public void setProject(ResponseProject project) {
+//        this.project = project;
+//    }
+
+    public static Result toResponseResult(LinkedHashMap<String, Object> map) throws ParseException {
+        return new Result(
                 (String) map.get("id"),
                 (String) map.get("projectId"),
                 (Integer) map.get("smells"),
@@ -123,6 +146,6 @@ public class ResponseResult {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", deletedAt=" + deletedAt +
-                '}';
+                "}\n";
     }
 }

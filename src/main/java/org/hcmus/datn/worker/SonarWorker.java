@@ -1,13 +1,14 @@
 package org.hcmus.datn.worker;
 
 import okhttp3.Response;
-import org.hcmus.datn.common.Constant;
+import org.hcmus.datn.common.Config;
+import org.hcmus.datn.common.ErrorCode;
 import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.DatabaseService;
 import org.hcmus.datn.services.HttpService;
 import org.hcmus.datn.services.ScannerService;
-import org.hcmus.datn.temporal.workflow.ProjectWorkflow;
-import org.hcmus.datn.temporal.model.request.Project;
+import org.hcmus.datn.temporal.model.response.Project;
+import org.hcmus.datn.temporal.model.response.ResponseObject;
 import org.hcmus.datn.utils.ScanResult;
 
 import java.io.File;
@@ -23,10 +24,10 @@ public class SonarWorker {
     private String submissionURL;
 
     ///Please ensure userID, assignmentID, submissionURL is initialize and valid
-    public void run() throws IOException, ParseException, InterruptedException {
+    public ResponseObject run() {
         //TODO: Replace with other config later
         //generate service
-        ScannerService scannerService = new ScannerService(Constant.SONARQUBE_HOST, Constant.SONARQUBE_USERNAME, Constant.SONARQUBE_PASSWORD);
+        ScannerService scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"));
         //create temp folder to handle
         File tempFolder = new File("temp");
         if (!tempFolder.exists()) {
@@ -48,11 +49,13 @@ public class SonarWorker {
 
             boolean projectCreated = scannerService.createNewProject(projectId);
             if (!projectCreated) {
-                throw new Exception("Error create new project Sonarqube");
+                return new ResponseObject(ErrorCode.FAILED.getValue(), "Error create new project Sonarqube");
+//                throw new Exception("Error create new project Sonarqube");
             }
             String token = scannerService.generateNewToken(projectId);
             if (token.isEmpty()) {
-                throw new Exception("Error generate token Sonarqube");
+                return new ResponseObject(ErrorCode.FAILED.getValue(), "Error generate token Sonarqube");
+//                throw new Exception("Error generate token Sonarqube");
             }
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
@@ -65,19 +68,25 @@ public class SonarWorker {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
+//            throw new RuntimeException(e);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
+//            throw new RuntimeException(e);
         }
 
         // Save project and result in to DataBase
-        DatabaseService.addProjectAndResult(scannerService, new Project(projectId, userID, assignmentID));
+        DatabaseService databaseServiceThread = new DatabaseService(scannerService,new Project(projectId, userID, assignmentID) );
+        databaseServiceThread.start();
+//        DatabaseService.saveProjectAndResult(scannerService, new Project(projectId, userID, assignmentID));
 
         //clean up folder
         if(tempFolder.exists())
         {
             tempFolder.delete();
         }
+        return ResponseObject.SUCCESS;
 
     }
 

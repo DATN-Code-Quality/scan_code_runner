@@ -1,26 +1,43 @@
 package org.hcmus.datn.temporal.model.response;
 
+import jakarta.persistence.*;
 import org.hcmus.datn.utils.Utils;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-public class ResponseProject {
+@Entity()
+@Table(name = "`project`")
+public class Project {
+    @Id
+    @UuidGenerator()
     private String id;
+    @Column(name = "`key`")
     private String key;
+    @Column(name = "`userId`")
     private String userId;
+    @Column(name = "`submissionId`")
     private String submissionId;
 
+    @Column(name = "`createdAt`")
     private Date createdAt;
+    @Column(name = "`updatedAt`")
     private Date updatedAt;
+    @Column(name = "`deletedAt`")
     private Date deletedAt;
 
-    public ResponseProject() {
+//    @OneToMany(
+//            mappedBy = "project",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<ResponseResult> results = new ArrayList<>();
+
+    public Project() {
     }
-    public ResponseProject(String id, String key, String userId, String submissionId, Date createdAt, Date updatedAt, Date deletedAt) {
+    public Project(String id, String key, String userId, String submissionId, Date createdAt, Date updatedAt, Date deletedAt) {
         this.id = id;
         this.key = key;
         this.userId = userId;
@@ -29,7 +46,7 @@ public class ResponseProject {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
-    public ResponseProject(String key, String userId, String submissionId) {
+    public Project(String key, String userId, String submissionId) {
         this.key = key;
         this.userId = userId;
         this.submissionId = submissionId;
@@ -38,7 +55,7 @@ public class ResponseProject {
 
 
 
-    public ResponseProject(String key, String userId) {
+    public Project(String key, String userId) {
         this.key = key;
         this.userId = userId;
     }
@@ -99,8 +116,16 @@ public class ResponseProject {
         this.deletedAt = deletedAt;
     }
 
-    public static ResponseProject toResponseProject(LinkedHashMap<String, Object> map) throws ParseException {
-        return new ResponseProject(
+//    public List<ResponseResult> getResults() {
+//        return results;
+//    }
+//
+//    public void setResults(List<ResponseResult> results) {
+//        this.results = results;
+//    }
+
+    public static Project toResponseProject(LinkedHashMap<String, Object> map) throws ParseException {
+        return new Project(
                 (String) map.get("id"),
                 (String) map.get("key"),
                 (String) map.get("userId"),
@@ -115,14 +140,14 @@ public class ResponseProject {
     @Override
     public String toString() {
         return "ResponseProject{" +
-                "id='" + id + '\'' +
-                ", key='" + key + '\'' +
-                ", userId='" + userId + '\'' +
-                ", submissionId='" + submissionId + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
+                "id='" + id + "'\n" +
+                ", key='" + key + "'\n" +
+                ", userId='" + userId + "'\n" +
+                ", submissionId='" + submissionId + "'\n" +
+                ", createdAt=" + createdAt + "\n"+
+                ", updatedAt=" + updatedAt + "\n"+
                 ", deletedAt=" + deletedAt +
-                '}';
+                "}\n";
     }
 }
 
