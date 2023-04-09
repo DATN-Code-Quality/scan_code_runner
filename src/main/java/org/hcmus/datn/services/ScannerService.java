@@ -41,24 +41,15 @@ public class ScannerService {
 
     public ScanResult scanProject(String projectPath, String projectKey, String token) {
         ScanResult result = ScanResult.UNKNOWN;
-        //create config file
-        SonarConfig sonarConfig=new SonarConfig();
-        sonarConfig.setProjectKey(projectKey);
-        sonarConfig.setLogin(token);
-        sonarConfig.setHostUrl(hostURL);
-        try {
-            System.out.println("Current folder path: "+projectPath);
-            sonarConfig.writeConfigToFile(projectPath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        //generate command to run
+        String command=buildTerminalCommand(projectPath,projectKey,token);
         //call terminal to run
         ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", String.format("cd %s && sonar-scanner.bat", projectPath));
+                "cmd.exe", "/c", String.format("cd %s && %s", projectPath,command));
         builder.redirectErrorStream(true);
 
         Process p = null;
-        BufferedReader r=null;
+        BufferedReader r = null;
         try {
             p = builder.start();
 
@@ -70,8 +61,7 @@ public class ScannerService {
                     break;
                 }
                 if (line.contains(ERROR)) {
-                    if(line.contains(ERROR_EXCUTION_MSG))
-                    {
+                    if (line.contains(ERROR_EXCUTION_MSG)) {
                         result = ScanResult.ERROR;
                         break;
                     }
@@ -87,8 +77,7 @@ public class ScannerService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if(r!=null)
-        {
+        if (r != null) {
             try {
                 r.close();
             } catch (IOException e) {
@@ -150,6 +139,42 @@ public class ScannerService {
         return "";
     }
 
+    private String buildTerminalCommand(String projectPath, String projectKey, String token) {
+        String command = "";
+        ProjectType projectType = SonarSensor.getTypeOfProject(projectPath);
+        switch (projectType) {
+            case C_SHARP:
+                command += "dotnet sonarscanner begin /k:\"" + projectKey + "\" /d:sonar.host.url=\"" + hostURL + "\"  /d:sonar.login=\"" + token + "\" ";
+                command += "&& dotnet build ";
+                command += "&& dotnet sonarscanner end /d:sonar.login=\"" + token + "\"";
+                break;
+            case JAVA_MAVEN:
+                command = "mvn sonar:sonar" + "  -Dsonar.projectKey=" + projectKey +
+                        "  -Dsonar.host.url=" + hostURL +
+                        "  -Dsonar.login=" + token;
+                break;
+                //TODO: implement later
+//            case JAVA_GRADLE:
+//
+//                break;
+            default:
+                //create config file
+                SonarConfig sonarConfig = new SonarConfig();
+                sonarConfig.setProjectKey(projectKey);
+                sonarConfig.setLogin(token);
+                sonarConfig.setHostUrl(hostURL);
+                try {
+                    System.out.println("Current folder path: " + projectPath);
+                    sonarConfig.writeConfigToFile(projectPath);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                command="sonar-scanner.bat";
+                break;
+        }
+        return command;
+    }
+
     public static String generateID(String userID, String assignmentID) {
 
 //        return userID + "_" + assignmentID + "_" + new Date().getTime();
@@ -173,8 +198,8 @@ public class ScannerService {
         HashMap<String, String> params = new HashMap<>();
         params.put("componentKeys", projectKey);
 
-        for(int i = 0; i < Constant.ISSUE_TYPES.length; i++){
-            params.put("types",Constant.ISSUE_TYPES[i] );
+        for (int i = 0; i < Constant.ISSUE_TYPES.length; i++) {
+            params.put("types", Constant.ISSUE_TYPES[i]);
 
             Request getResult = HttpService.newGetRequest(Constant.GET_RESULT_API, params, headers);
             System.out.println(getResult);
