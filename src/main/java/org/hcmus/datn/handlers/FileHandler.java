@@ -1,6 +1,7 @@
 package org.hcmus.datn.handlers;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -56,6 +57,33 @@ public class FileHandler {
         //delete current folder
         return result&&file.delete();
     }
+
+    public static ArrayList<File> getAllFileOfFolder(String folderPath)
+    {
+        ArrayList<File> files=new ArrayList<>();
+        File file=new File(folderPath);
+
+        if(file.exists()&&file.isDirectory())
+        {
+            File[] fileList=file.listFiles();
+            for(int i=0;i<fileList.length;i++)
+            {
+
+                File f=fileList[i];
+                if(f.isFile())
+                {
+                    files.add(f);
+                } else if (f.isDirectory()) {
+                    files.addAll(getAllFileOfFolder(f.getPath()));
+                }
+
+            }
+        }
+
+        return files;
+    }
+
+
 
     public static String extractArchiveFile(String zipPath, String desPath) {
         File destDir = new File(desPath);
