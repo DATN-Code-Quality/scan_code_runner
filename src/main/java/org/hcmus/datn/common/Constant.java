@@ -14,10 +14,4 @@ public class Constant {
     public static final String DATABASE_SERVICE_RESPONSE_ERROR = "error";
     public static final String DATABASE_SERVICE_RESPONSE_DATA = "data";
 
-
-
-
-
-
-
 }

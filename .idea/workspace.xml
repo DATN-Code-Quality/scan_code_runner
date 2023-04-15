@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0a20bca-d451-4fc1-8eb0-452d0f04c779" name="Changes" comment="">
+    <list default="true" id="d0a20bca-d451-4fc1-8eb0-452d0f04c779" name="Changes" comment="temp update">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarFieldConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/DatabaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/activities/ScannerActivities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/activities/ScannerActivities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/activities/ScannerActivitiesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/activities/ScannerActivitiesImpl.java" afterDir="false" />
@@ -13,6 +17,9 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/worker/ScannerWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/worker/ScannerWorker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/workflow/ScannerWorkflow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/workflow/ScannerWorkflow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/workflow/ScannerWorkflowImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/workflow/ScannerWorkflowImpl.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" afterDir="false" />
+>>>>>>> bfe0255bd942ee4a6bc868e0e433b63202b53a0c
       <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarWorker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +82,11 @@
       <recent name="org.hcmus.datn.utils" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.Main">
+=======
+  <component name="RunManager" selected="Application.MainTest">
+>>>>>>> bfe0255bd942ee4a6bc868e0e433b63202b53a0c
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.hcmus.datn.temporal.worker.Client" />
       <module name="code_scanner" />
@@ -94,7 +105,7 @@
       <module name="code_scanner" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.hcmus.datn.common.*" />
+          <option name="PATTERN" value="org.hcmus.datn.worker.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -115,8 +126,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.MainTest" />
+      <module name="code_scanner" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
+=======
+        <item itemvalue="Application.MainTest" />
+        <item itemvalue="Application.Client" />
+>>>>>>> bfe0255bd942ee4a6bc868e0e433b63202b53a0c
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
       </list>
@@ -155,6 +184,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="jakarta.persistence.PersistenceException" package="jakarta.persistence" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
