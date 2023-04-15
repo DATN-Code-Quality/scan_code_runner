@@ -129,4 +129,23 @@ public class Submission {
     public void setDeletedAt(Date deletedAt) {
         this.deletedAt = deletedAt;
     }
+
+
+    @Override
+    public String toString() {
+        return "Submission{" +
+                "id='" + id + '\'' + '\n' +
+                ", assignmentId='" + assignmentId + '\'' + '\n' +
+                ", link='" + link + '\'' + '\n' +
+                ", note='" + note + '\'' + '\n' +
+                ", submitType='" + submitType + '\'' + '\n' +
+                ", userId='" + userId + '\'' + '\n' +
+                ", origin='" + origin + '\'' + '\n' +
+                ", status=" + status + '\n' +
+                ", grade=" + grade + '\n' +
+                ", createdAt=" + createdAt + '\n' +
+                ", updatedAt=" + updatedAt + '\n' +
+                ", deletedAt=" + deletedAt +
+                '}';
+    }
 }

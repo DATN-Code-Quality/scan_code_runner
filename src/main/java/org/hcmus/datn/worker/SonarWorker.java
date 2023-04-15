@@ -24,7 +24,7 @@ public class SonarWorker {
     private String submissionURL;
 
     ///Please ensure userID, assignmentID, submissionURL is initialize and valid
-    public ResponseObject run() {
+    public boolean run() {
         //TODO: Replace with other config later
         //generate service
         ScannerService scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"));
@@ -49,44 +49,48 @@ public class SonarWorker {
 
             boolean projectCreated = scannerService.createNewProject(projectId);
             if (!projectCreated) {
-                return new ResponseObject(ErrorCode.FAILED.getValue(), "Error create new project Sonarqube");
-//                throw new Exception("Error create new project Sonarqube");
+                throw new Exception("Error create new project Sonarqube");
             }
             String token = scannerService.generateNewToken(projectId);
             if (token.isEmpty()) {
-                return new ResponseObject(ErrorCode.FAILED.getValue(), "Error generate token Sonarqube");
-//                throw new Exception("Error generate token Sonarqube");
+                throw new Exception("Error generate token Sonarqube");
             }
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
                 System.out.println("Extract folder path: " + extractedFolderPath);
 
                 ScanResult result= scannerService.scanProject(extractedFolderPath, projectId, token);
+
+                if (!result.equals(ScanResult.SUCCESS)){
+                    return false;
+                }
                 System.out.println(result);
-
-
             }
 
         } catch (IOException e) {
-
-            return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
+            return false;
 //            throw new RuntimeException(e);
         } catch (Exception e) {
-            return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
+            return false;
 //            throw new RuntimeException(e);
         }
 
         // Save project and result in to DataBase
-        DatabaseService databaseServiceThread = new DatabaseService(scannerService,new Project(projectId, userID, assignmentID) );
-        databaseServiceThread.start();
-//        DatabaseService.saveProjectAndResult(scannerService, new Project(projectId, userID, assignmentID));
+//        DatabaseService databaseServiceThread = new DatabaseService(scannerService,new Project(projectId, userID, assignmentID) );
+//        databaseServiceThread.start();
+        try
+        {
+            DatabaseService.saveProjectAndResult(scannerService, new Project(projectId, userID, assignmentID));
+        }catch (Exception e){
+            return false;
+        }
 
         //clean up folder
         if(tempFolder.exists())
         {
             tempFolder.delete();
         }
-        return ResponseObject.SUCCESS;
+        return true;
 
     }
 

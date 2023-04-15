@@ -6,7 +6,6 @@ import io.temporal.worker.Worker;
 import io.temporal.worker.WorkerFactory;
 import org.hcmus.datn.common.Config;
 import org.hcmus.datn.temporal.activities.ScannerActivitiesImpl;
-import org.hcmus.datn.temporal.workflow.ScannerWorkflow;
 import org.hcmus.datn.temporal.workflow.ScannerWorkflowImpl;
 
 public class ScannerWorker {

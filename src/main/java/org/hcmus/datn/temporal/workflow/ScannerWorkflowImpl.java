@@ -16,11 +16,11 @@ public class ScannerWorkflowImpl implements ScannerWorkflow{
             .setInitialInterval(Duration.ofSeconds(1))
             .setMaximumInterval(Duration.ofSeconds(100))
             .setBackoffCoefficient(2)
-            .setMaximumAttempts(500)
+            .setMaximumAttempts(1)
             .build();
     private final ActivityOptions defaultActivityOptions = ActivityOptions.newBuilder()
             // Timeout options specify when to automatically timeout Activities if the process is taking too long.
-            .setStartToCloseTimeout(Duration.ofSeconds(5))
+            .setStartToCloseTimeout(Duration.ofSeconds(120))
             // Optionally provide customized RetryOptions.
             // Temporal retries failures by default, this is simply an example.
             .setRetryOptions(retryoptions)
@@ -29,6 +29,11 @@ public class ScannerWorkflowImpl implements ScannerWorkflow{
 
     @Override
     public ResponseObject scanCode(Submission submission)  {
-        return scannerActivities.scanCode(submission);
+        try {
+            scannerActivities.scanCode(submission);
+        }catch (Exception e){
+            return new ResponseObject(ResponseObject.FAILED.getError(), e.getMessage());
+        }
+        return new ResponseObject(ResponseObject.SUCCESS.getError(), "successfully");
     }
 }

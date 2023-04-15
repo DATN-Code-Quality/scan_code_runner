@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-public class DatabaseService implements Runnable {
+public class DatabaseService  {//implements Runnable {
     private ScannerService scannerService;
     private Project project;
     private Thread t;
@@ -78,6 +78,34 @@ public class DatabaseService implements Runnable {
         return project;
     }
 
+    public static Project findProjectByKey(String key){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+        Project project = null;
+        try {
+            session.getTransaction().begin();
+
+            String sql = "Select project from " + Project.class.getName() + " project "
+                    + "where project.key = :key";
+
+            // Tạo đối tượng Query.
+            Query<Project> query = session.createQuery(sql);
+            query.setParameter("key", key);
+
+            // Thực hiện truy vấn.
+            project = query.getSingleResultOrNull();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return project;
+    }
     public static Result createResult(Result result){
         SessionFactory factory = HibernateUtils.getSessionFactory();
         Session session = factory.getCurrentSession();
@@ -136,7 +164,10 @@ public class DatabaseService implements Runnable {
     public static ResponseObject saveProjectAndResult(ScannerService scannerService, Project project) throws InterruptedException {
         try
         {
-            Project savedProject = DatabaseService.createProject(project);
+            Project savedProject = DatabaseService.findProjectByKey(project.getKey());
+            if (savedProject == null){
+                savedProject = DatabaseService.createProject(project);
+            }
 
             Thread.sleep(20000);
             Result result = scannerService.getResultOverview( savedProject.getId(), savedProject.getKey());
@@ -155,19 +186,19 @@ public class DatabaseService implements Runnable {
         return ResponseObject.SUCCESS;
     }
 
-    @Override
-    public void run() {
-        try {
-            DatabaseService.saveProjectAndResult(this.scannerService, this.project);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void start() {
-        if (t == null) {
-            t = new Thread(this);
-            t.start();
-        }
-    }
+//    @Override
+//    public void run() {
+//        try {
+//            DatabaseService.saveProjectAndResult(this.scannerService, this.project);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public void start() {
+//        if (t == null) {
+//            t = new Thread(this);
+//            t.start();
+//        }
+//    }
 }
