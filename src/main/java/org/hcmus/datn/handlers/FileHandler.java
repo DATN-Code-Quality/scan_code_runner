@@ -143,4 +143,9 @@ public class FileHandler {
         return destFile;
     }
 
+    public static String getNameOfOS()
+    {
+        return System.getProperty("os.name");
+    }
+
 }

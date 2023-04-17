@@ -6,6 +6,7 @@ import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.hcmus.datn.common.Constant;
+import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.JsonUtils;
 import org.hcmus.datn.utils.ScanResult;
@@ -45,7 +46,7 @@ public class ScannerService {
         String command=buildTerminalCommand(projectPath,projectKey,token);
         //call terminal to run
         ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", String.format("cd %s && %s", projectPath,command));
+                getShellScript(), String.format("cd %s && %s", projectPath,command));
         builder.redirectErrorStream(true);
 
         Process p = null;
@@ -169,7 +170,7 @@ public class ScannerService {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                command="sonar-scanner.bat";
+                command="sonar-scanner";
                 break;
         }
         return command;
@@ -216,6 +217,28 @@ public class ScannerService {
         result.setVulnerabilities(map.get(Constant.ISSUE_TYPES[2]));
 
         return result;
+    }
+
+    public static String getShellScript()
+    {
+        String shellScript="";
+        String osName=FileHandler.getNameOfOS().toLowerCase();
+        if(osName.contains("win"))
+        {
+            shellScript="cmd.exe /c";
+        }
+
+        else if(osName.contains("linux"))
+        {
+            shellScript="bash -c";
+
+        }else if (osName.contains("mac"))
+        {
+            shellScript="/bin/sh -c";
+        }
+
+        return  shellScript;
+
     }
 }
 
