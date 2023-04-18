@@ -46,9 +46,11 @@ public class SonarWorker {
             if (downloaded) {
                 extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath());
             }
+            System.out.println("Done extracting project");
 
             boolean projectCreated = scannerService.createNewProject(projectId);
             if (!projectCreated) {
+                System.out.println("Error create new Project");
                 throw new Exception("Error create new project Sonarqube");
             }
             String token = scannerService.generateNewToken(projectId);
@@ -61,6 +63,8 @@ public class SonarWorker {
                 ScanResult result= scannerService.scanProject(extractedFolderPath, projectId, token);
 
                 if (!result.equals(ScanResult.SUCCESS)){
+                    System.out.println("Error while scan");
+
                     return false;
                 }
                 System.out.println(result);

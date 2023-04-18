@@ -46,7 +46,7 @@ public class ScannerService {
         String command=buildTerminalCommand(projectPath,projectKey,token);
         //call terminal to run
         ProcessBuilder builder = new ProcessBuilder(
-                getShellScript(), String.format("cd %s && %s", projectPath,command));
+                "bash","-c", String.format("cd \"%s\" && %s", projectPath, command));
         builder.redirectErrorStream(true);
 
         Process p = null;
@@ -170,7 +170,7 @@ public class ScannerService {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                command="sonar-scanner";
+                command="/home/lap15454/Downloads/sonar-scanner-cli-4.8.0.2856-linux/sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner";
                 break;
         }
         return command;
@@ -178,8 +178,7 @@ public class ScannerService {
 
     public static String generateID(String userID, String assignmentID) {
 
-//        return userID + "_" + assignmentID + "_" + new Date().getTime();
-        return userID + "_" + assignmentID;
+        return userID + "_" + assignmentID + "_" + new Date().getTime();
     }
 
     public String getHostURL() {
@@ -230,7 +229,7 @@ public class ScannerService {
 
         else if(osName.contains("linux"))
         {
-            shellScript="bash -c";
+            shellScript="/bin/bash && -c && ";
 
         }else if (osName.contains("mac"))
         {

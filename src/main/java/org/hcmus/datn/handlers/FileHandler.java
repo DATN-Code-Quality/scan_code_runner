@@ -123,8 +123,10 @@ public class FileHandler {
             zis.closeEntry();
             zis.close();
         } catch (FileNotFoundException e) {
+            System.out.println("Errow extracting...");
             throw new RuntimeException(e);
         } catch (IOException e) {
+            System.out.println("Errow extracting...");
             return "";
 
         }
