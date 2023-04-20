@@ -22,6 +22,7 @@ public class SonarWorker {
     private String userID;
     private String assignmentID;
     private String submissionURL;
+    private String submissionID;
 
     ///Please ensure userID, assignmentID, submissionURL is initialize and valid
     public boolean run() {
@@ -83,7 +84,7 @@ public class SonarWorker {
 //        databaseServiceThread.start();
         try
         {
-            DatabaseService.saveProjectAndResult(scannerService, new Project(projectId, userID, assignmentID));
+            DatabaseService.saveProjectAndResult(scannerService, new Project(projectId, userID, submissionID));
         }catch (Exception e){
             return false;
         }
@@ -119,5 +120,13 @@ public class SonarWorker {
 
     public void setSubmissionURL(String submissionURL) {
         this.submissionURL = submissionURL;
+    }
+
+    public String getSubmissionID() {
+        return submissionID;
+    }
+
+    public void setSubmissionID(String submissionID) {
+        this.submissionID = submissionID;
     }
 }
