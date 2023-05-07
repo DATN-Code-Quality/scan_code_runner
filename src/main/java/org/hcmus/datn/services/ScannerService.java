@@ -46,7 +46,9 @@ public class ScannerService {
         String command=buildTerminalCommand(projectPath,projectKey,token);
         //call terminal to run
         ProcessBuilder builder = new ProcessBuilder(
-                getShellScript(), String.format("cd %s && %s", projectPath,command));
+//                getShellScript(), String.format("cd %s && %s", projectPath,command));
+                "cmd.exe", "/c"  , String.format("cd %s && %s", projectPath,command));
+
         builder.redirectErrorStream(true);
 
         Process p = null;
@@ -171,6 +173,7 @@ public class ScannerService {
                     throw new RuntimeException(e);
                 }
                 command="sonar-scanner";
+//                command="sonar-scanner.bat -D\"sonar.projectKey="+ projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login="+token+"\"";
                 break;
         }
         return command;
@@ -178,8 +181,8 @@ public class ScannerService {
 
     public static String generateID(String userID, String assignmentID) {
 
-//        return userID + "_" + assignmentID + "_" + new Date().getTime();
-        return userID + "_" + assignmentID;
+        return userID + "_" + assignmentID + "_" + new Date().getTime();
+//        return userID + "_" + assignmentID;
     }
 
     public String getHostURL() {

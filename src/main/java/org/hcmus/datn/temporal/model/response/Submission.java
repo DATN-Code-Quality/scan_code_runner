@@ -8,10 +8,12 @@ public class Submission {
     private String link;
     private String note;
     private String submitType;
+    private Date timemodified;
     private String userId;
     private String origin;
-    private Boolean status;
+    private String status;
     private Float grade;
+    private String submissionMoodleId;
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
@@ -19,16 +21,18 @@ public class Submission {
     public Submission() {
     }
 
-    public Submission(String id, String assignmentId, String link, String note, String submitType, String userId, String origin, Boolean status, Float grade, Date createdAt, Date updatedAt, Date deletedAt) {
+    public Submission(String id, String assignmentId, String link, String note, String submitType, Date timemodified, String userId, String origin, String status, Float grade, String submissionMoodleId, Date createdAt, Date updatedAt, Date deletedAt) {
         this.id = id;
         this.assignmentId = assignmentId;
         this.link = link;
         this.note = note;
         this.submitType = submitType;
+        this.timemodified = timemodified;
         this.userId = userId;
         this.origin = origin;
         this.status = status;
         this.grade = grade;
+        this.submissionMoodleId = submissionMoodleId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -90,11 +94,11 @@ public class Submission {
         this.origin = origin;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -130,6 +134,21 @@ public class Submission {
         this.deletedAt = deletedAt;
     }
 
+    public Date getTimemodified() {
+        return timemodified;
+    }
+
+    public void setTimemodified(Date timemodified) {
+        this.timemodified = timemodified;
+    }
+
+    public String getSubmissionMoodleId() {
+        return submissionMoodleId;
+    }
+
+    public void setSubmissionMoodleId(String submissionMoodleId) {
+        this.submissionMoodleId = submissionMoodleId;
+    }
 
     @Override
     public String toString() {

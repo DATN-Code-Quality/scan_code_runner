@@ -13,7 +13,7 @@ public class ScannerActivitiesImpl implements ScannerActivities{
         worker.setUserID(submission.getUserId());
         worker.setAssignmentID(submission.getAssignmentId());
         worker.setSubmissionURL(submission.getLink());
-
+        worker.setSubmissionID(submission.getId());
         //call worker to run
         try {
             Boolean result = worker.run();
