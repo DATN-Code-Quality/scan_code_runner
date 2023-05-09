@@ -45,10 +45,10 @@ public class ScannerService {
         //generate command to run
         String command=buildTerminalCommand(projectPath,projectKey,token);
         //call terminal to run
-        ProcessBuilder builder = new ProcessBuilder(
-//                getShellScript(), String.format("cd %s && %s", projectPath,command));
-                "cmd.exe", "/c"  , String.format("cd %s && %s", projectPath,command));
-
+//        ProcessBuilder builder = new ProcessBuilder(
+////                getShellScript(), String.format("cd %s && %s", projectPath,command));
+//                "cmd.exe", "/c"  , String.format("cd %s && %s", projectPath,command));
+        ProcessBuilder builder = getProcessBuilder(projectPath, command);
         builder.redirectErrorStream(true);
 
         Process p = null;
@@ -119,7 +119,7 @@ public class ScannerService {
         HashMap<String, String> params = new HashMap<>();
 
         FormBody.Builder formBuilder = new FormBody.Builder();
-        formBuilder.add("name", tokenName);
+        formBuilder.add("name", tokenName + new Date().getTime());
         formBuilder.add("login", username);
 
         Request createToken = HttpService.newPostRequest(
@@ -180,9 +180,8 @@ public class ScannerService {
     }
 
     public static String generateID(String userID, String assignmentID) {
-
-        return userID + "_" + assignmentID + "_" + new Date().getTime();
-//        return userID + "_" + assignmentID;
+//        return userID + "_" + assignmentID + "_" + new Date().getTime();
+        return userID + "_" + assignmentID;
     }
 
     public String getHostURL() {
@@ -222,25 +221,33 @@ public class ScannerService {
         return result;
     }
 
-    public static String getShellScript()
+    public static ProcessBuilder getProcessBuilder(String projectPath, String command)
     {
-        String shellScript="";
+        ProcessBuilder processBuilder = null;
+
         String osName=FileHandler.getNameOfOS().toLowerCase();
         if(osName.contains("win"))
         {
-            shellScript="cmd.exe /c";
+            processBuilder= new ProcessBuilder(
+                    "cmd.exe", "/c"  , String.format("cd %s && %s", projectPath,command));;
         }
 
         else if(osName.contains("linux"))
         {
-            shellScript="bash -c";
+
+            processBuilder= new ProcessBuilder(
+                    "bash", "-c"  , String.format("cd \"%s\" && %s", projectPath,command));;
+//            shellScript="bash -c";
 
         }else if (osName.contains("mac"))
         {
-            shellScript="/bin/sh -c";
+
+            processBuilder= new ProcessBuilder(
+                    "/bin/sh", "-c"  , String.format("cd %s && %s", projectPath,command));;
+//            shellScript="/bin/sh -c";
         }
 
-        return  shellScript;
+        return  processBuilder;
 
     }
 }

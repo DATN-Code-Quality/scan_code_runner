@@ -161,28 +161,32 @@ public class DatabaseService  {//implements Runnable {
         }
         return result;
     }
-    public static ResponseObject saveProjectAndResult(ScannerService scannerService, Project project) throws InterruptedException {
-        try
-        {
-            Project savedProject = DatabaseService.findProjectByKey(project.getKey());
-            if (savedProject == null){
-                savedProject = DatabaseService.createProject(project);
-            }
-
-            Thread.sleep(20000);
-            Result result = scannerService.getResultOverview( savedProject.getId(), savedProject.getKey());
-
-            Result savedResult = DatabaseService.createResult(result);
-
-
-            if(savedResult == null){
-                return new ResponseObject(ErrorCode.FAILED.getValue(), "Cann't save result");
-            }
+    public static ResponseObject upsertProject(Project project) throws InterruptedException {
+        Project savedProject = DatabaseService.findProjectByKey(project.getKey());
+        if (savedProject == null){
+            DatabaseService.createProject(project);
         }
-        catch (IOException e){
-            System.out.println(e);
-            return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
-        }
+//        try
+//        {
+//            Project savedProject = DatabaseService.findProjectByKey(project.getKey());
+//            if (savedProject == null){
+//                savedProject = DatabaseService.createProject(project);
+//            }
+//
+//            Thread.sleep(20000);
+//            Result result = scannerService.getResultOverview( savedProject.getId(), savedProject.getKey());
+//
+//            Result savedResult = DatabaseService.createResult(result);
+//
+//
+//            if(savedResult == null){
+//                return new ResponseObject(ErrorCode.FAILED.getValue(), "Cann't save result");
+//            }
+//        }
+//        catch (IOException e){
+//            System.out.println(e);
+//            return new ResponseObject(ErrorCode.FAILED.getValue(), e.getMessage());
+//        }
         return ResponseObject.SUCCESS;
     }
 
