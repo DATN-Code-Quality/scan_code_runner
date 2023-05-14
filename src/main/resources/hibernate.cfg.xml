@@ -27,6 +27,7 @@
 <!--        <property name="show_sql">true</property>-->
 
         <mapping class="org.hcmus.datn.temporal.model.response.Result" />
+        <mapping class="org.hcmus.datn.temporal.model.request.Submission" />
         <mapping class="org.hcmus.datn.temporal.model.response.Project" />
 
     </session-factory>

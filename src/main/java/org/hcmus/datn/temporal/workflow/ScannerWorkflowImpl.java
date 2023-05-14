@@ -5,10 +5,8 @@ import io.temporal.common.RetryOptions;
 import io.temporal.workflow.Workflow;
 import org.hcmus.datn.temporal.activities.ScannerActivities;
 import org.hcmus.datn.temporal.model.response.ResponseObject;
-import org.hcmus.datn.temporal.model.response.Submission;
+import org.hcmus.datn.temporal.model.request.Submission;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.time.Duration;
 
 public class ScannerWorkflowImpl implements ScannerWorkflow{

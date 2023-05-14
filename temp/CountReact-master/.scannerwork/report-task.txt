@@ -1,6 +1,0 @@
-projectKey=9d8d78b9-dc53-4e96-a98d-56ce36ff2116_e8c2559c-629d-4c45-b9bb-87a532445f7d
-serverUrl=http://14.225.211.60:9000
-serverVersion=8.9.10.61524
-dashboardUrl=http://14.225.211.60:9000/dashboard?id=9d8d78b9-dc53-4e96-a98d-56ce36ff2116_e8c2559c-629d-4c45-b9bb-87a532445f7d
-ceTaskId=AYf_MVZMpEy_ngQBxKUC
-ceTaskUrl=http://14.225.211.60:9000/api/ce/task?id=AYf_MVZMpEy_ngQBxKUC

@@ -126,7 +126,6 @@ public class FileHandler {
             throw new RuntimeException(e);
         } catch (IOException e) {
             return "";
-
         }
 
         return filePath;

@@ -1,27 +1,51 @@
-package org.hcmus.datn.temporal.model.response;
+package org.hcmus.datn.temporal.model.request;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.hcmus.datn.utils.ScanResult;
+import org.hcmus.datn.utils.SubmissionStatus;
 
 import java.util.Date;
 
+
+@Entity()
+@Table(name = "submission")
 public class Submission {
+    @Id
     private String id;
+    @Column(name = "`assignmentId`")
     private String assignmentId;
+    @Column(name = "`link`")
     private String link;
+    @Column(name = "`note`")
     private String note;
+    @Column(name = "`submitType`")
     private String submitType;
+    @Column(name = "`timemodified`")
     private Date timemodified;
+    @Column(name = "`userId`")
     private String userId;
+    @Column(name = "`origin`")
     private String origin;
-    private String status;
+    @Column(name = "`status`")
+    private SubmissionStatus status;
+    @Column(name = "`grade`")
     private Float grade;
+    @Column(name = "`submissionMoodleId`")
     private String submissionMoodleId;
+    @Column(name = "`createdAt`")
     private Date createdAt;
+    @Column(name = "`updatedAt`")
     private Date updatedAt;
+    @Column(name = "`deletedAt`")
     private Date deletedAt;
 
     public Submission() {
     }
 
-    public Submission(String id, String assignmentId, String link, String note, String submitType, Date timemodified, String userId, String origin, String status, Float grade, String submissionMoodleId, Date createdAt, Date updatedAt, Date deletedAt) {
+    public Submission(String id, String assignmentId, String link, String note, String submitType, Date timemodified, String userId, String origin, SubmissionStatus status, Float grade, String submissionMoodleId, Date createdAt, Date updatedAt, Date deletedAt) {
         this.id = id;
         this.assignmentId = assignmentId;
         this.link = link;
@@ -94,11 +118,11 @@ public class Submission {
         this.origin = origin;
     }
 
-    public String getStatus() {
+    public SubmissionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(SubmissionStatus status) {
         this.status = status;
     }
 

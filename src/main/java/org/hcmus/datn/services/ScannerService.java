@@ -1,6 +1,8 @@
 package org.hcmus.datn.services;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.Request;
@@ -11,6 +13,7 @@ import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.JsonUtils;
 import org.hcmus.datn.utils.ScanResult;
 import org.hcmus.datn.worker.SonarConfig;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -44,10 +47,8 @@ public class ScannerService {
         ScanResult result = ScanResult.UNKNOWN;
         //generate command to run
         String command=buildTerminalCommand(projectPath,projectKey,token);
+
         //call terminal to run
-//        ProcessBuilder builder = new ProcessBuilder(
-////                getShellScript(), String.format("cd %s && %s", projectPath,command));
-//                "cmd.exe", "/c"  , String.format("cd %s && %s", projectPath,command));
         ProcessBuilder builder = getProcessBuilder(projectPath, command);
         builder.redirectErrorStream(true);
 
@@ -140,6 +141,41 @@ public class ScannerService {
             throw new RuntimeException(e);
         }
         return "";
+    }
+
+    public String getResult(String projectKey) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("projectKey", projectKey);
+        Request createToken = HttpService.newGetRequest(
+                hostURL + "/api/qualitygates/project_status",  params, headers);
+        Response res = HttpService.excuteRequest(createToken);
+        int statusCode = res.code();
+        try {
+            if (statusCode == 200) {
+                JSONObject projectStatusObj = new JSONObject( res.body().string());
+                String status = projectStatusObj.getJSONObject("projectStatus").getString("status");
+                if (status == null) {
+                    return "";
+                }
+                return status;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    public boolean addProjectIntoGate(String gateName, String projectKey) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("gateName", gateName);
+        params.put("projectKey", projectKey);
+
+        Request createProject = HttpService.newPostRequest(
+                hostURL + "/api/qualitygates/select", new FormBody.Builder().build(), params, headers);
+        Response res = HttpService.excuteRequest(createProject);
+        int statusCode = res.code();
+        return statusCode == 204;
     }
 
     private String buildTerminalCommand(String projectPath, String projectKey, String token) {
