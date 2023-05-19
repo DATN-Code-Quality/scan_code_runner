@@ -1,5 +1,6 @@
 package org.hcmus.datn.utils;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,5 +44,16 @@ public class Utils {
             }
         }
         return url+fileID;
+    }
+
+    public static void deleteDir(File file) {
+
+        File[] list = file.listFiles();
+        if (list != null) {
+            for (File temp : list) {
+                deleteDir(temp);
+            }
+        }
+        file.delete();
     }
 }

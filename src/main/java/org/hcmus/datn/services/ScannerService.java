@@ -143,13 +143,14 @@ public class ScannerService {
         return "";
     }
 
-    public String getResult(String projectKey) {
+    public String getResult(String projectKey) throws InterruptedException {
+        Thread.sleep(10000);
         HashMap<String, String> params = new HashMap<>();
 
         params.put("projectKey", projectKey);
-        Request createToken = HttpService.newGetRequest(
+        Request getResult = HttpService.newGetRequest(
                 hostURL + "/api/qualitygates/project_status",  params, headers);
-        Response res = HttpService.excuteRequest(createToken);
+        Response res = HttpService.excuteRequest(getResult);
         int statusCode = res.code();
         try {
             if (statusCode == 200) {

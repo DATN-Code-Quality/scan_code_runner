@@ -1,6 +1,7 @@
 package org.hcmus.datn.worker;
 
 import okhttp3.Response;
+import org.eclipse.jgit.api.Git;
 import org.hcmus.datn.common.Config;
 import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.DatabaseService;
@@ -10,9 +11,11 @@ import org.hcmus.datn.temporal.model.response.Project;
 import org.hcmus.datn.temporal.model.request.Submission;
 import org.hcmus.datn.utils.ScanResult;
 import org.hcmus.datn.utils.SubmissionStatus;
+import org.hcmus.datn.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class SonarWorker {
@@ -49,7 +52,6 @@ public class SonarWorker {
                     else{
                         return false;
                     }
-
                 }
                 else{
                     return false;
@@ -63,19 +65,33 @@ public class SonarWorker {
         try {
             String extractedFolderPath = "";
 
-            if(submissionURL.contains("http")){
-                Response response = HttpService.excuteRequest(HttpService.newGetRequest(submissionURL, new HashMap<>(), new HashMap<>()));
+            if (submissionURL.contains("https://github.com/")){
+                Git.cloneRepository()
+                        .setURI(submissionURL)
+                        .setDirectory(Paths.get("temp/"+submissionID+"/").toFile())
+                        .call();
 
-                String saveFileName = projectId + ".zip";
-                boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath(), saveFileName);
-                //unzip file (if zipped)
-                if (downloaded) {
-                    extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath());
-                }
+                extractedFolderPath = tempFolder.getPath() + "/" + submissionID;
             }
             else{
-                extractedFolderPath = FileHandler.extractArchiveFile(submissionURL, tempFolder.getPath());
+                if(submissionURL.contains("http")){
+                    Response response = HttpService.excuteRequest(HttpService.newGetRequest(submissionURL, new HashMap<>(), new HashMap<>()));
+
+                    String saveFileName = projectId + ".zip";
+                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath() + "/zipFile", saveFileName);
+                    //unzip file (if zipped)
+                    if (downloaded) {
+                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/zipFile/" + saveFileName, tempFolder.getPath() + "/" +submissionID);
+                    }
+                }
+                else{
+                    extractedFolderPath = FileHandler.extractArchiveFile(submissionURL, tempFolder.getPath() + "/" +submissionID);
+                }
             }
+
+            System.out.println(extractedFolderPath);
+
+
 
             String token = scannerService.generateNewToken(projectId);
             if (token.isEmpty()) {
@@ -94,6 +110,7 @@ public class SonarWorker {
                 }
                 else{
                     String status = scannerService.getResult(projectId);
+
                     if(status.equals("ERROR")){
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.FAIL);
                     } else if (status.equals("OK")) {
@@ -115,10 +132,12 @@ public class SonarWorker {
             return false;
 //            throw new RuntimeException(e);
         }
-        if(tempFolder.exists())
-        {
-            tempFolder.delete();
-        }
+        //TODO: nêm xóa dir sau khi scanner xong
+//        if(tempFolder.exists())
+//        {
+//            System.out.println(tempFolder.getPath());
+//            Utils.deleteDir(tempFolder);
+//        }
 
 
         //clean up folder
