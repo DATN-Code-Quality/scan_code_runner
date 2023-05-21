@@ -84,10 +84,10 @@ public class SonarWorker {
                     Response response = HttpService.excuteRequest(HttpService.newGetRequest(submissionURL, new HashMap<>(), new HashMap<>()));
 
                     String saveFileName = projectId + ".zip";
-                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath() + "/zipFile", saveFileName);
+                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath() , saveFileName);
                     //unzip file (if zipped)
                     if (downloaded) {
-                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/zipFile/" + saveFileName, tempFolder.getPath() + "/" +submissionID);
+                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath() + "/" +submissionID);
                     }
                 }
                 else{
