@@ -50,16 +50,22 @@ public class SonarWorker {
                         DatabaseService.createProject(new Project(projectId, userID, submissionID));
                     }
                     else{
+                        System.out.println("Cannot add project to gate");
+
                         return false;
                     }
                 }
                 else{
+                    System.out.println("Error create new project");
+
                     return false;
                 }
 
             }
         }catch (Exception e){
-            return false;
+            System.out.println("Not found project");
+            e.printStackTrace();
+            return  false;
         }
 
         try {
@@ -106,6 +112,7 @@ public class SonarWorker {
 
                 System.out.println("Scan result: " + result);
                 if (!result.equals(ScanResult.SUCCESS)){
+                    System.err.println("Scan project result: FAILED");
                     return false;
                 }
                 else{
@@ -116,19 +123,24 @@ public class SonarWorker {
                     } else if (status.equals("OK")) {
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.PASS);
                     }else {
+                        System.err.println("Scan project result: UNKNOWN");
+
                         return false;
                     }
 
                 }
             }
             else{
+                System.err.println("Error while extracting file");
                 return false;
             }
 
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
 //            throw new RuntimeException(e);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
 //            throw new RuntimeException(e);
         }

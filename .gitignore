@@ -41,3 +41,5 @@ build/
 .idea/workspace.xml
 out/artifacts/SonarqubeRunner/SonarqubeRunner.jar
 /out/
+.idea/vcs.xml
+.idea/workspace.xml
