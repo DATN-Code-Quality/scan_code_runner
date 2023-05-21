@@ -50,6 +50,7 @@ public class ScannerService {
 
         //call terminal to run
         ProcessBuilder builder = getProcessBuilder(projectPath, command);
+
         builder.redirectErrorStream(true);
 
         Process p = null;
@@ -211,6 +212,7 @@ public class ScannerService {
                 }
                 command="/root/datn/scan_code_runner/sonar-scanner/bin/sonar-scanner";
 //                command="sonar-scanner.bat -D\"sonar.projectKey="+ projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login="+token+"\"";
+                System.out.println("Command: "+command);
                 break;
         }
         return command;
@@ -283,6 +285,7 @@ public class ScannerService {
                     "/bin/sh", "-c"  , String.format("cd %s && %s", projectPath,command));;
 //            shellScript="/bin/sh -c";
         }
+        System.out.println(processBuilder.command());
 
         return  processBuilder;
 
