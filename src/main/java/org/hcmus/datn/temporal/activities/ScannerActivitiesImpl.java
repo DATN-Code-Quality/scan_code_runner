@@ -27,7 +27,7 @@ public class ScannerActivitiesImpl implements ScannerActivities{
 
             if (result == false){
                 DatabaseService.updateSubmisionStatus(submission.getId(), SubmissionStatus.SCANNING_FALI);
-                throw new Exception("Cann't scan this project");
+                throw new Exception("Cannot scan this project");
             }
         }
         catch (Exception e){

@@ -209,7 +209,7 @@ public class ScannerService {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                command="sonar-scanner";
+                command="/root/datn/scan_code_runner/sonar-scanner/bin/sonar-scanner";
 //                command="sonar-scanner.bat -D\"sonar.projectKey="+ projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login="+token+"\"";
                 break;
         }
