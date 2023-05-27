@@ -10,9 +10,10 @@ enum ProjectType{
 
     JAVA_MAVEN,
     JAVA_GRADLE,
-
     C_SHARP,
+    C_CPP,
     OTHERS,
+
 }
 public class SonarSensor {
     /**
@@ -36,6 +37,10 @@ public class SonarSensor {
             if(f.getPath().endsWith(".csproj"))
             {
                 return ProjectType.C_SHARP;
+            }
+            if(f.getPath().endsWith(".cpp")||f.getPath().endsWith(".c"))
+            {
+                return ProjectType.C_CPP;
             }
         }
 

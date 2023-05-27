@@ -3,26 +3,21 @@ package org.hcmus.datn.worker;
 import okhttp3.Response;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.lib.Repository;
 import org.hcmus.datn.common.Config;
 import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.DatabaseService;
 import org.hcmus.datn.services.HttpService;
 import org.hcmus.datn.services.ScannerService;
 import org.hcmus.datn.temporal.model.response.Project;
-import org.hcmus.datn.temporal.model.request.Submission;
 import org.hcmus.datn.utils.ScanResult;
 import org.hcmus.datn.utils.SubmissionStatus;
 import org.hcmus.datn.utils.Utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class SonarWorker {
-    private ScannerService scannerService;
-
     private String userID;
     private String assignmentID;
     private String submissionURL;

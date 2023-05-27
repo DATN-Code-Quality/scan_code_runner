@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScannerService {
+    static String osName;
+    private ProjectType projectType;
     private String hostURL = "";
     private String username = "";
     private String password = "";
@@ -36,6 +38,9 @@ public class ScannerService {
         this.hostURL = hostURL;
         this.username = username;
         this.password = password;
+        //set default project type
+        this.projectType = ProjectType.OTHERS;
+        this.osName = FileHandler.getNameOfOS().toLowerCase();
 
         headers.put("Authorization", Credentials.basic(username, password));
     }
@@ -146,13 +151,22 @@ public class ScannerService {
         HashMap<String, String> params = new HashMap<>();
 
         params.put("projectKey", projectKey);
+        //TODO: please please please check projectType of this class
+        //TODO: please please please check projectType of this class
+        //TODO: please please please check projectType of this class
+
+        //TODO: check project type to send to cloud or not then handle it below scope
+        /** START SCOPE **/
         Request getResult = HttpService.newGetRequest(
-                hostURL + "/api/qualitygates/project_status",  params, headers);
+                hostURL + "/api/qualitygates/project_status", params, headers);
         Response res = HttpService.excuteRequest(getResult);
+        /** END SCOPE **/
+
+
         int statusCode = res.code();
         try {
             if (statusCode == 200) {
-                JSONObject projectStatusObj = new JSONObject( res.body().string());
+                JSONObject projectStatusObj = new JSONObject(res.body().string());
                 String status = projectStatusObj.getJSONObject("projectStatus").getString("status");
                 if (status == null) {
                     return "";
@@ -179,8 +193,30 @@ public class ScannerService {
 
     private String buildTerminalCommand(String projectPath, String projectKey, String token) {
         String command = "";
-        ProjectType projectType = SonarSensor.getTypeOfProject(projectPath);
+        projectType = SonarSensor.getTypeOfProject(projectPath);
         switch (projectType) {
+            case C_CPP:
+                String build_wrapper_command = "";
+                if (osName.contains("win")) {
+                    build_wrapper_command = "build-wrapper-win-x86-64.exe";
+                } else if (osName.contains("linux")) {
+                    build_wrapper_command = "build-wrapper-linux-x86-64";
+                } else if (osName.contains("mac")) {
+                    build_wrapper_command = "build-wrapper-macosx-x86";
+                }
+                command += build_wrapper_command + " --out-dir bw-output g++ *.cpp";
+                System.out.println("Wrapper command: " + command);
+                //TODO: change later and set up to config file
+                String sonarCloudOrganization = "anhvinhphan659";
+                String sonarCloudProjKey = "cpp_test";
+                String sonarCloudToken = "109688e4077b86b73c1d64f2332dcfd2bef6fb96";
+
+                command += " && sonar-scanner -D\"sonar.organization=" + sonarCloudOrganization + "\""
+                        + " -D\"sonar.projectKey=" + sonarCloudProjKey + "\""
+                        + " -D\"sonar.login=" + sonarCloudToken + "\""
+                        + " -D\"sonar.sources=.\" -D\"sonar.verbose=true\" -D\"sonar.cfamily.build-wrapper-output=bw-output\" -D\"sonar.host.url=https://sonarcloud.io\" ";
+                System.out.println("Final command: "+command);
+                break;
             case C_SHARP:
                 command += "dotnet sonarscanner begin /k:\"" + projectKey + "\" /d:sonar.host.url=\"" + hostURL + "\"  /d:sonar.login=\"" + token + "\" ";
                 command += "&& dotnet build ";
@@ -209,7 +245,7 @@ public class ScannerService {
                     throw new RuntimeException(e);
                 }
 //                command="/root/datn/scan_code_runner/sonar-scanner/bin/sonar-scanner";
-                command = "sonar-scanner.bat -D\"sonar.projectKey=" + projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login=" + token + "\"";
+                command = "sonar-scanner -D\"sonar.projectKey=" + projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login=" + token + "\"";
                 System.out.println("Command: " + command);
                 break;
         }
@@ -258,25 +294,22 @@ public class ScannerService {
         return result;
     }
 
-    public static ProcessBuilder getProcessBuilder(String projectPath, String command)
-    {
+    private static ProcessBuilder getProcessBuilder(String projectPath, String command) {
         ProcessBuilder processBuilder = null;
 
-        String osName=FileHandler.getNameOfOS().toLowerCase();
-        if(osName.contains("win"))
-        {
-            processBuilder= new ProcessBuilder(
-                    "cmd.exe", "/c"  , String.format("cd %s && %s", projectPath,command));;
-        }
+        osName = FileHandler.getNameOfOS().toLowerCase();
+        if (osName.contains("win")) {
+            processBuilder = new ProcessBuilder(
+                    "cmd.exe", "/c", String.format("cd %s && %s", projectPath, command));
+            ;
+        } else if (osName.contains("linux")) {
 
-        else if(osName.contains("linux"))
-        {
-
-            processBuilder= new ProcessBuilder(
-                    "bash", "-c"  , String.format("cd \"%s\" && %s", projectPath,command));;
+            processBuilder = new ProcessBuilder(
+                    "bash", "-c", String.format("cd \"%s\" && %s", projectPath, command));
+            ;
 //            shellScript="bash -c";
 
-        }else if (osName.contains("mac"))
+        } else if (osName.contains("mac"))
         {
 
             processBuilder= new ProcessBuilder(

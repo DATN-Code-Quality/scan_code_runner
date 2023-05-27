@@ -1,8 +1,8 @@
 package org.hcmus.datn.services;
 
-import org.hcmus.datn.temporal.model.response.ResponseObject;
-import org.hcmus.datn.temporal.model.response.Project;
 import org.hcmus.datn.temporal.model.request.Submission;
+import org.hcmus.datn.temporal.model.response.Project;
+import org.hcmus.datn.temporal.model.response.ResponseObject;
 import org.hcmus.datn.utils.HibernateUtils;
 import org.hcmus.datn.utils.SubmissionStatus;
 import org.hibernate.Session;
@@ -11,16 +11,8 @@ import org.hibernate.query.Query;
 
 import java.util.Date;
 
-public class DatabaseService  {//implements Runnable {
-    private ScannerService scannerService;
-    private Project project;
-    private Thread t;
-    public DatabaseService(ScannerService scannerService, Project project) {
-        this.scannerService = scannerService;
-        this.project = project;
-    }
-
-    public static Project createProject(Project project){
+public class DatabaseService {
+    public static Project createProject(Project project) {
         SessionFactory factory = HibernateUtils.getSessionFactory();
 
         Session session = factory.getCurrentSession();
