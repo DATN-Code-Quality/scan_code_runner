@@ -1,8 +1,6 @@
 package org.hcmus.datn.services;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.Request;
@@ -13,11 +11,9 @@ import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.JsonUtils;
 import org.hcmus.datn.utils.ScanResult;
 import org.hcmus.datn.worker.SonarConfig;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
@@ -29,7 +25,8 @@ public class ScannerService {
     private String username = "";
     private String password = "";
 
-    static final String SUCCESS_MSG = "EXECUTION SUCCESS";
+    static final String EXECUTION_SUCCESS_MSG = "EXECUTION SUCCESS";
+    static final String BUILD_SUCCESS_MSG = "BUILD SUCCESS";
     static final String ERROR_EXCUTION_MSG = "Error during SonarScanner execution";
     static final String ERROR = "ERROR";
 
@@ -72,7 +69,7 @@ public class ScannerService {
                     }
 
                 }
-                if (line.contains(SUCCESS_MSG)) {
+                if (line.contains(EXECUTION_SUCCESS_MSG) || line.contains(BUILD_SUCCESS_MSG)) {
                     result = ScanResult.SUCCESS;
 
                 }
@@ -191,8 +188,9 @@ public class ScannerService {
                 break;
             case JAVA_MAVEN:
                 command = "mvn sonar:sonar" + "  -Dsonar.projectKey=" + projectKey +
-                        "  -Dsonar.host.url=" + hostURL +
-                        "  -Dsonar.login=" + token;
+                        " -Dsonar.java.binaries=" + "./target/classes" +
+                        " -Dsonar.host.url=" + hostURL +
+                        " -Dsonar.login=" + token + " -X";
                 break;
                 //TODO: implement later
 //            case JAVA_GRADLE:
@@ -210,9 +208,9 @@ public class ScannerService {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                command="/root/datn/scan_code_runner/sonar-scanner/bin/sonar-scanner";
-//                command="sonar-scanner.bat -D\"sonar.projectKey="+ projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login="+token+"\"";
-                System.out.println("Command: "+command);
+//                command="/root/datn/scan_code_runner/sonar-scanner/bin/sonar-scanner";
+                command = "sonar-scanner.bat -D\"sonar.projectKey=" + projectKey + "\" -D\"sonar.sources=.\" -D\"sonar.host.url=" + hostURL + "\" -D\"sonar.login=" + token + "\"";
+                System.out.println("Command: " + command);
                 break;
         }
         return command;

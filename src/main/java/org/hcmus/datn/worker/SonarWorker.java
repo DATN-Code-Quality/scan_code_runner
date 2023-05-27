@@ -1,7 +1,9 @@
 package org.hcmus.datn.worker;
 
 import okhttp3.Response;
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.lib.Repository;
 import org.hcmus.datn.common.Config;
 import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.DatabaseService;
@@ -41,62 +43,57 @@ public class SonarWorker {
         //generate ID
         String projectId = ScannerService.generateID(userID, assignmentID);
 
-        try
-        {
+        try {
             Project project = DatabaseService.findProjectByKey(projectId);
-            if(project == null){
-                if(scannerService.createNewProject(projectId)){
-                    if(scannerService.addProjectIntoGate(assignmentID, projectId)){
+            if (project == null) {
+                if (scannerService.createNewProject(projectId)) {
+                    if (scannerService.addProjectIntoGate(assignmentID, projectId)) {
                         DatabaseService.createProject(new Project(projectId, userID, submissionID));
-                    }
-                    else{
+                    } else {
                         System.out.println("Cannot add project to gate");
 
                         return false;
                     }
-                }
-                else{
+                } else {
                     System.out.println("Error create new project");
 
                     return false;
                 }
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Not found project");
             e.printStackTrace();
-            return  false;
+            return false;
         }
 
         try {
             String extractedFolderPath = "";
 
-            if (submissionURL.contains("https://github.com/")){
-                Git.cloneRepository()
-                        .setURI(submissionURL)
-                        .setDirectory(Paths.get("temp/"+submissionID+"/").toFile())
-                        .call();
+            if (submissionURL.contains("https://github.com/")) {
+                CloneCommand cloneGitCmd = Git.cloneRepository().setURI(submissionURL).setDirectory(Paths.get("temp/" + submissionID + "/").toFile());
 
+                Git git = cloneGitCmd.call();
+                //TODO: please close clone process although it is autoclosable
+                git.close();
+                //DONE: handle git clone process
                 extractedFolderPath = tempFolder.getPath() + "/" + submissionID;
-            }
-            else{
-                if(submissionURL.contains("http")){
+            } else {
+                if (submissionURL.contains("http")) {
                     Response response = HttpService.excuteRequest(HttpService.newGetRequest(submissionURL, new HashMap<>(), new HashMap<>()));
 
                     String saveFileName = projectId + ".zip";
-                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath() , saveFileName);
+                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath(), saveFileName);
                     //unzip file (if zipped)
                     if (downloaded) {
-                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath() + "/" +submissionID);
+                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath() + "/" + submissionID);
                     }
-                }
-                else{
-                    extractedFolderPath = FileHandler.extractArchiveFile(submissionURL, tempFolder.getPath() + "/" +submissionID);
+                } else {
+                    extractedFolderPath = FileHandler.extractArchiveFile(submissionURL, tempFolder.getPath() + "/" + submissionID);
                 }
             }
 
             System.out.println(extractedFolderPath);
-
 
 
             String token = scannerService.generateNewToken(projectId);
@@ -108,48 +105,49 @@ public class SonarWorker {
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
                 System.out.println("Extract folder path: " + extractedFolderPath);
-                ScanResult result= scannerService.scanProject(extractedFolderPath, projectId, token);
+                ScanResult result = scannerService.scanProject(extractedFolderPath, projectId, token);
 
                 System.out.println("Scan result: " + result);
-                if (!result.equals(ScanResult.SUCCESS)){
+                if (!result.equals(ScanResult.SUCCESS)) {
                     System.err.println("Scan project result: FAILED");
-                    return false;
-                }
-                else{
+
+                } else {
                     String status = scannerService.getResult(projectId);
 
-                    if(status.equals("ERROR")){
+                    if (status.equals("ERROR")) {
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.FAIL);
                     } else if (status.equals("OK")) {
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.PASS);
-                    }else {
+                    } else {
                         System.err.println("Scan project result: UNKNOWN");
 
-                        return false;
+
                     }
 
                 }
-            }
-            else{
+            } else {
                 System.err.println("Error while extracting file");
                 return false;
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-//            throw new RuntimeException(e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-//            throw new RuntimeException(e);
         }
-        //TODO: nêm xóa dir sau khi scanner xong
-//        if(tempFolder.exists())
-//        {
-//            System.out.println(tempFolder.getPath());
-//            Utils.deleteDir(tempFolder);
+//        catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+////            throw new RuntimeException(e);
 //        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+//            throw new RuntimeException(e);
+        } finally {
+            if (tempFolder.exists()) {
+                System.out.println(tempFolder.getPath());
+                Utils.deleteDir(tempFolder);
+            }
+
+        }
+        //TODO:
 
 
         //clean up folder
