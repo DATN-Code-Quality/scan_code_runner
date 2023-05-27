@@ -8,12 +8,15 @@ import java.util.zip.ZipInputStream;
 public class FileHandler {
     public static boolean getFileFromStream(InputStream inputStream,String destinationFolder,String fileName) throws IOException {
         File outputFolder=new File(destinationFolder);
+        System.out.println("Output folder check");
+        System.out.println(outputFolder.exists());
+        System.out.println(outputFolder.isDirectory());
         if(!outputFolder.exists()&&!outputFolder.isDirectory())
         {
             throw new IOException("Output folder is not valid!");
         }
 
-        FileOutputStream fout=new FileOutputStream(new File(destinationFolder+"/"+fileName));
+        FileOutputStream fout=new FileOutputStream(destinationFolder+"/"+fileName);
         int total=0;
         int count=0;
         byte[] data = new byte[1024];
