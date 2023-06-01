@@ -1,9 +1,11 @@
 package org.hcmus.datn.services;
 
 import org.hcmus.datn.temporal.model.request.Submission;
+import org.hcmus.datn.temporal.model.response.Assignment;
 import org.hcmus.datn.temporal.model.response.Project;
 import org.hcmus.datn.temporal.model.response.ResponseObject;
 import org.hcmus.datn.utils.HibernateUtils;
+import org.hcmus.datn.utils.ProjectType;
 import org.hcmus.datn.utils.SubmissionStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -165,6 +167,69 @@ public class DatabaseService {
         }finally {
             session.close();
         }
+    }
+
+    public static void updateProjectType(String projectId, ProjectType type){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+//        Project project = null;
+        try {
+            session.getTransaction().begin();
+
+            String sql = "update " + Project.class.getName() + " project "
+                    + "set project.type = :type "
+                    + "where project.id = :projectId";
+            Query<Project> query = session.createQuery(sql);
+
+            // Tạo đối tượng Query.
+//            submission.setStatus(status);
+//            session.save(submission);
+//            session.getTransaction().commit();
+            query.setParameter("type", type);
+            query.setParameter("projectId", projectId);
+
+//
+//            // Thực hiện truy vấn.
+            query.executeUpdate();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+    public static String getConfigOfAssignment(String assignmentId){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+        String config = null;
+        try {
+            session.getTransaction().begin();
+
+            String sql = "Select assignment.config from " + Assignment.class.getName() + " assignment "
+                    + "where assignment.id = :id";
+
+            // Tạo đối tượng Query.
+            Query<String> query = session.createQuery(sql);
+            query.setParameter("id", assignmentId);
+
+            // Thực hiện truy vấn.
+            config = query.getSingleResultOrNull();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return config;
     }
 
 //    @Override

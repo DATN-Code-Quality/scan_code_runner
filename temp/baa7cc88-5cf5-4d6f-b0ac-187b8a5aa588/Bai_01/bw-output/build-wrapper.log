@@ -1,0 +1,104 @@
+Thu Jun 01 17:52:30 2023: build-wrapper, version 6.44 (win-x86-64)
+Thu Jun 01 17:52:30 2023: isWow64: 0
+Thu Jun 01 17:52:30 2023: windows version: 10.0, service pack: 0.0, build number: 22621, product type: 1
+Thu Jun 01 17:52:30 2023: current directory: D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01
+Thu Jun 01 17:52:30 2023: cwd: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01>
+Thu Jun 01 17:52:30 2023: out-dir absolute path: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\bw-output>
+Thu Jun 01 17:52:30 2023: command line received: <g++ *.cpp >
+Thu Jun 01 17:52:30 2023: initializing json file
+Thu Jun 01 17:52:30 2023: starting debug cycle
+Thu Jun 01 17:52:30 2023: process created with pid: 24412
+Thu Jun 01 17:52:30 2023: image path name: <C:\MinGW\bin\g++.exe>
+Thu Jun 01 17:52:30 2023: command line: <g++ *.cpp >
+Thu Jun 01 17:52:30 2023: working directory: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\>
+Thu Jun 01 17:52:30 2023: isWow64: 1
+Thu Jun 01 17:52:30 2023: wildcard expansion of: D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\\*.cpp
+Thu Jun 01 17:52:30 2023: wildcard expansion adds: D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\\Bai_01.cpp
+Thu Jun 01 17:52:30 2023: VirtualQueryEx 00000000000106DC
+Thu Jun 01 17:52:30 2023: 	Offset 1756
+Thu Jun 01 17:52:30 2023: 	VirtualQueryEx Base	BaseAddr: 0000000000010000	AllocationBase: 0000000000010000	AllocationProtect: 0x4	Protect: 0x4	State: 0x1000	RegionSize: 131072	Type: 0x20000
+Thu Jun 01 17:52:30 2023: Read environment of size 2611
+Thu Jun 01 17:52:30 2023: env0: <=::=::\>
+Thu Jun 01 17:52:30 2023: env1: <=D:=D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01>
+Thu Jun 01 17:52:30 2023: env2: <ALLUSERSPROFILE=C:\ProgramData>
+Thu Jun 01 17:52:30 2023: env3: <APPDATA=C:\Users\Admin\AppData\Roaming>
+Thu Jun 01 17:52:30 2023: env4: <CommonProgramFiles=C:\Program Files\Common Files>
+Thu Jun 01 17:52:30 2023: env5: <CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files>
+Thu Jun 01 17:52:30 2023: env6: <CommonProgramW6432=C:\Program Files\Common Files>
+Thu Jun 01 17:52:30 2023: env7: <COMPUTERNAME=MSI>
+Thu Jun 01 17:52:30 2023: env8: <ComSpec=C:\WINDOWS\system32\cmd.exe>
+Thu Jun 01 17:52:30 2023: env9: <configsetroot=C:\WINDOWS\ConfigSetRoot>
+Thu Jun 01 17:52:30 2023: env10: <CYGWIN=wincmdln>
+Thu Jun 01 17:52:30 2023: env11: <DataGrip=C:\Program Files\JetBrains\DataGrip 2022.3.3\bin;>
+Thu Jun 01 17:52:30 2023: env12: <DriverData=C:\Windows\System32\Drivers\DriverData>
+Thu Jun 01 17:52:30 2023: env13: <EFC_10228=1>
+Thu Jun 01 17:52:30 2023: env14: <FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer>
+Thu Jun 01 17:52:30 2023: env15: <FPS_BROWSER_USER_PROFILE_STRING=Default>
+Thu Jun 01 17:52:30 2023: env16: <HOMEDRIVE=C:>
+Thu Jun 01 17:52:30 2023: env17: <HOMEPATH=\Users\Admin>
+Thu Jun 01 17:52:30 2023: env18: <IDEA_INITIAL_DIRECTORY=C:\WINDOWS\system32>
+Thu Jun 01 17:52:30 2023: env19: <IntelliJ IDEA=C:\Program Files\JetBrains\IntelliJ IDEA 2022.3.2\bin;>
+Thu Jun 01 17:52:30 2023: env20: <JAVA_HOME=C:\Program Files\Java\jdk-17>
+Thu Jun 01 17:52:30 2023: env21: <LOCALAPPDATA=C:\Users\Admin\AppData\Local>
+Thu Jun 01 17:52:30 2023: env22: <LOGONSERVER=\\MSI>
+Thu Jun 01 17:52:30 2023: env23: <MOZ_PLUGIN_PATH=C:\Program Files (x86)\Foxit Software\Foxit PDF Reader\plugins\>
+Thu Jun 01 17:52:30 2023: env24: <NUMBER_OF_PROCESSORS=20>
+Thu Jun 01 17:52:30 2023: env25: <OneDrive=C:\Users\Admin\OneDrive - VNU-HCMUS>
+Thu Jun 01 17:52:30 2023: env26: <OneDriveCommercial=C:\Users\Admin\OneDrive - VNU-HCMUS>
+Thu Jun 01 17:52:30 2023: env27: <OS=Windows_NT>
+Thu Jun 01 17:52:30 2023: env28: <Path=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk-17\bin;C:\Program Files\Git\bin;C:\Src\sonar-scanner-4.7.0.2747-windows\bin;C:\Program Files\nodejs\;C:\Src\flutter\bin;C:\Program Files\Docker\Docker\resources\bin;D:\sonarqube\build-wrapper-win-x86;C:\MinGW\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Admin\AppData\Local\Microsoft\WindowsApps;C:\Users\Admin\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2022.3.2\bin;;C:\Program Files\Java\jdk-17\bin;;C:\Program Files\JetBrains\DataGrip 2022.3.3\bin;;C:\Users\Admin\AppData\Roaming\npm>
+Thu Jun 01 17:52:30 2023: env29: <PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC>
+Thu Jun 01 17:52:30 2023: env30: <PROCESSOR_ARCHITECTURE=AMD64>
+Thu Jun 01 17:52:30 2023: env31: <PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 154 Stepping 3, GenuineIntel>
+Thu Jun 01 17:52:30 2023: env32: <PROCESSOR_LEVEL=6>
+Thu Jun 01 17:52:30 2023: env33: <PROCESSOR_REVISION=9a03>
+Thu Jun 01 17:52:30 2023: env34: <ProgramData=C:\ProgramData>
+Thu Jun 01 17:52:30 2023: env35: <ProgramFiles=C:\Program Files>
+Thu Jun 01 17:52:30 2023: env36: <ProgramFiles(x86)=C:\Program Files (x86)>
+Thu Jun 01 17:52:30 2023: env37: <ProgramW6432=C:\Program Files>
+Thu Jun 01 17:52:30 2023: env38: <PROMPT=$P$G>
+Thu Jun 01 17:52:30 2023: env39: <PSModulePath=C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules>
+Thu Jun 01 17:52:30 2023: env40: <PUBLIC=C:\Users\Public>
+Thu Jun 01 17:52:30 2023: env41: <SESSIONNAME=Console>
+Thu Jun 01 17:52:30 2023: env42: <SONAR_TOKEN=3551fa45ceb57fab69eaa4c77a93e05b0285bef6>
+Thu Jun 01 17:52:30 2023: env43: <SystemDrive=C:>
+Thu Jun 01 17:52:30 2023: env44: <SystemRoot=C:\WINDOWS>
+Thu Jun 01 17:52:30 2023: env45: <TEMP=C:\Users\Admin\AppData\Local\Temp>
+Thu Jun 01 17:52:30 2023: env46: <TMP=C:\Users\Admin\AppData\Local\Temp>
+Thu Jun 01 17:52:30 2023: env47: <USERDOMAIN=MSI>
+Thu Jun 01 17:52:30 2023: env48: <USERDOMAIN_ROAMINGPROFILE=MSI>
+Thu Jun 01 17:52:30 2023: env49: <USERNAME=Admin>
+Thu Jun 01 17:52:30 2023: env50: <USERPROFILE=C:\Users\Admin>
+Thu Jun 01 17:52:30 2023: env51: <windir=C:\WINDOWS>
+Thu Jun 01 17:52:30 2023: env52: <ZES_ENABLE_SYSMAN=1>
+Thu Jun 01 17:52:30 2023: env53: <_NO_DEBUG_HEAP=1>
+Thu Jun 01 17:52:30 2023: process created with pid: 25152
+Thu Jun 01 17:52:30 2023: image path name: <c:\mingw\bin\..\libexec\gcc\mingw32\6.3.0\cc1plus.exe>
+Thu Jun 01 17:52:30 2023: command line: <c:/mingw/bin/../libexec/gcc/mingw32/6.3.0/cc1plus.exe -quiet -iprefix c:\mingw\bin\../lib/gcc/mingw32/6.3.0/ Bai_01.cpp -quiet -dumpbase Bai_01.cpp -mtune=generic -march=i586 -auxbase Bai_01 -o C:\Users\Admin\AppData\Local\Temp\ccoA6oga.s>
+Thu Jun 01 17:52:30 2023: working directory: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\>
+Thu Jun 01 17:52:30 2023: isWow64: 1
+Thu Jun 01 17:52:30 2023: skipping process c:\MinGW\bin\..\libexec\gcc\mingw32\6.3.0\cc1plus.exe with pid: 25152
+Thu Jun 01 17:52:30 2023: process with pid 25152 exit with code: 0 (0x0)
+Thu Jun 01 17:52:30 2023: process created with pid: 21660
+Thu Jun 01 17:52:30 2023: image path name: <c:\mingw\bin\..\lib\gcc\mingw32\6.3.0\..\..\..\..\mingw32\bin\as.exe>
+Thu Jun 01 17:52:30 2023: command line: <c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/as.exe -o C:\Users\Admin\AppData\Local\Temp\cc6LHe1m.o C:\Users\Admin\AppData\Local\Temp\ccoA6oga.s>
+Thu Jun 01 17:52:30 2023: working directory: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\>
+Thu Jun 01 17:52:30 2023: isWow64: 1
+Thu Jun 01 17:52:30 2023: skipping process c:\MinGW\bin\..\lib\gcc\mingw32\6.3.0\..\..\..\..\mingw32\bin\as.exe with pid: 21660
+Thu Jun 01 17:52:30 2023: process with pid 21660 exit with code: 0 (0x0)
+Thu Jun 01 17:52:30 2023: process created with pid: 15924
+Thu Jun 01 17:52:30 2023: image path name: <c:\mingw\bin\..\libexec\gcc\mingw32\6.3.0\collect2.exe>
+Thu Jun 01 17:52:30 2023: command line: <c:/mingw/bin/../libexec/gcc/mingw32/6.3.0/collect2.exe -plugin c:/mingw/bin/../libexec/gcc/mingw32/6.3.0/liblto_plugin-0.dll -plugin-opt=c:/mingw/bin/../libexec/gcc/mingw32/6.3.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\Admin\AppData\Local\Temp\ccEyGNSB.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -Bdynamic -u ___register_frame_info -u ___deregister_frame_info c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o -Lc:/mingw/bin/../lib/gcc/mingw32/6.3.0 -Lc:/mingw/bin/../lib/gcc -Lc:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/lib -Lc:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../.. C:\Users\Admin\AppData\Local\Temp\cc6LHe1m.o -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o>
+Thu Jun 01 17:52:30 2023: working directory: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\>
+Thu Jun 01 17:52:30 2023: isWow64: 1
+Thu Jun 01 17:52:30 2023: skipping process c:\MinGW\bin\..\libexec\gcc\mingw32\6.3.0\collect2.exe with pid: 15924
+Thu Jun 01 17:52:30 2023: process created with pid: 2824
+Thu Jun 01 17:52:30 2023: image path name: <c:\mingw\bin\..\lib\gcc\mingw32\6.3.0\..\..\..\..\mingw32\bin\ld.exe>
+Thu Jun 01 17:52:30 2023: command line: <c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe -plugin c:/mingw/bin/../libexec/gcc/mingw32/6.3.0/liblto_plugin-0.dll -plugin-opt=c:/mingw/bin/../libexec/gcc/mingw32/6.3.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\Admin\AppData\Local\Temp\ccEyGNSB.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -Bdynamic -u ___register_frame_info -u ___deregister_frame_info c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../crt2.o c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtbegin.o -Lc:/mingw/bin/../lib/gcc/mingw32/6.3.0 -Lc:/mingw/bin/../lib/gcc -Lc:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/lib -Lc:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../.. C:\Users\Admin\AppData\Local\Temp\cc6LHe1m.o -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lmsvcrt c:/mingw/bin/../lib/gcc/mingw32/6.3.0/crtend.o>
+Thu Jun 01 17:52:30 2023: working directory: <D:\DACK\scanner\scan_code_runner\temp\baa7cc88-5cf5-4d6f-b0ac-187b8a5aa588\Bai_01\>
+Thu Jun 01 17:52:30 2023: isWow64: 1
+Thu Jun 01 17:52:30 2023: skipping process c:\MinGW\bin\..\lib\gcc\mingw32\6.3.0\..\..\..\..\mingw32\bin\ld.exe with pid: 2824
+Thu Jun 01 17:52:30 2023: process with pid 2824 exit with code: 0 (0x0)
+Thu Jun 01 17:52:30 2023: process with pid 15924 exit with code: 0 (0x0)
+Thu Jun 01 17:52:30 2023: process with pid 24412 exit with code: 0 (0x0)
+Thu Jun 01 17:52:30 2023: finalizing json file

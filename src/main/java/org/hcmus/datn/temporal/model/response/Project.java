@@ -1,6 +1,7 @@
 package org.hcmus.datn.temporal.model.response;
 
 import jakarta.persistence.*;
+import org.hcmus.datn.utils.ProjectType;
 import org.hcmus.datn.utils.Utils;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -20,6 +21,9 @@ public class Project {
     private String userId;
     @Column(name = "`submissionId`")
     private String submissionId;
+
+    @Column(name = "`type`")
+    private ProjectType type;
 
     @Column(name = "`createdAt`")
     private Date createdAt;
@@ -46,10 +50,11 @@ public class Project {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
     }
-    public Project(String key, String userId, String submissionId) {
+    public Project(String key, String userId, String submissionId, ProjectType type) {
         this.key = key;
         this.userId = userId;
         this.submissionId = submissionId;
+        this.type = type;
     }
 
 
@@ -116,7 +121,15 @@ public class Project {
         this.deletedAt = deletedAt;
     }
 
-//    public List<ResponseResult> getResults() {
+    public ProjectType getType() {
+        return type;
+    }
+
+    public void settype(ProjectType type) {
+        this.type = type;
+    }
+
+    //    public List<ResponseResult> getResults() {
 //        return results;
 //    }
 //
@@ -136,6 +149,7 @@ public class Project {
         );
 
     }
+
 
     @Override
     public String toString() {

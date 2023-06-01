@@ -5,12 +5,15 @@ import okhttp3.Credentials;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.hcmus.datn.common.Config;
 import org.hcmus.datn.common.Constant;
 import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.JsonUtils;
+import org.hcmus.datn.utils.ProjectType;
 import org.hcmus.datn.utils.ScanResult;
 import org.hcmus.datn.worker.SonarConfig;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -43,6 +46,14 @@ public class ScannerService {
         this.osName = FileHandler.getNameOfOS().toLowerCase();
 
         headers.put("Authorization", Credentials.basic(username, password));
+    }
+
+    public ScannerService(String hostURL) {
+        this.hostURL = hostURL;
+
+        this.projectType = ProjectType.C_CPP;
+        this.osName = FileHandler.getNameOfOS().toLowerCase();
+//        headers.put("Authorization", Credentials.basic(username, password));
     }
 
     public ScanResult scanProject(String projectPath, String projectKey, String token) {
@@ -151,11 +162,6 @@ public class ScannerService {
         HashMap<String, String> params = new HashMap<>();
 
         params.put("projectKey", projectKey);
-        //TODO: please please please check projectType of this class
-        //TODO: please please please check projectType of this class
-        //TODO: please please please check projectType of this class
-
-        //TODO: check project type to send to cloud or not then handle it below scope
         /** START SCOPE **/
         Request getResult = HttpService.newGetRequest(
                 hostURL + "/api/qualitygates/project_status", params, headers);
@@ -174,6 +180,49 @@ public class ScannerService {
                 return status;
             }
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
+    public String getResultFromCloud(String projectKey, String assignmentId) throws InterruptedException {
+        Thread.sleep(5000);
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("component", projectKey);
+        params.put("metrics", "bugs,vulnerabilities,code_smells,duplicated_lines_density,coverage,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations");
+
+        Request getResult = HttpService.newGetRequest(
+                hostURL + "/api/measures/search_history", params, headers);
+        Response res = HttpService.excuteRequest(getResult);
+
+        int statusCode = res.code();
+        try {
+            if (statusCode == 200) {
+                JSONObject configObj = new JSONObject(DatabaseService.getConfigOfAssignment(assignmentId));
+                JSONObject projectStatusObj = new JSONObject(res.body().string());
+
+                int length = projectStatusObj.getJSONObject("paging").getInt("total");
+                JSONArray measures = projectStatusObj.getJSONArray("measures");
+                HashMap<String, Double> measuresMap = new HashMap<>();
+                for(int i = 0; i < measures.length(); i++){
+                    Double value = measures.getJSONObject(i).getJSONArray("history").getJSONObject(length -1).getDouble("value");
+                    String metric = measures.getJSONObject(i).getString("metric");
+                    try {
+                        if(configObj.get(metric) != null ){
+                            if( (configObj.getDouble(metric) > value && metric.equals("coverage")) || (configObj.getDouble(metric) < value && !metric.equals("coverage"))){
+                                return "ERROR";
+                            }
+                        }
+                    }catch (Exception e){}
+                }
+                return "OK";
+            }
+            else{
+                System.out.println(res);
+            }
+        } catch (IOException e) {
+            System.out.println(e);
             throw new RuntimeException(e);
         }
         return "";
@@ -207,14 +256,20 @@ public class ScannerService {
                 command += build_wrapper_command + " --out-dir bw-output g++ *.cpp";
                 System.out.println("Wrapper command: " + command);
                 //TODO: change later and set up to config file
-                String sonarCloudOrganization = "anhvinhphan659";
-                String sonarCloudProjKey = "cpp_test";
-                String sonarCloudToken = "109688e4077b86b73c1d64f2332dcfd2bef6fb96";
+                String sonarCloudOrganization = Config.get("SONARCLOUD_ORGANIZATION");
+//                String sonarCloudProjKey = "cpp_test";
+                String sonarCloudProjKey = projectKey;
+                String sonarCloudToken = Config.get("SONARCLOUD_TOKEN");
 
+//                command += " && sonar-scanner -D\"sonar.organization=" + sonarCloudOrganization + "\""
+//                        + " -D\"sonar.projectKey=" + sonarCloudProjKey + "\""
+//                        + " -D\"sonar.login=" + sonarCloudToken + "\""
+//                        + " -D\"sonar.sources=.\" -D\"sonar.verbose=true\" -D\"sonar.cfamily.build-wrapper-output=bw-output\" -D\"sonar.host.url=https://sonarcloud.io\" ";
                 command += " && sonar-scanner -D\"sonar.organization=" + sonarCloudOrganization + "\""
                         + " -D\"sonar.projectKey=" + sonarCloudProjKey + "\""
                         + " -D\"sonar.login=" + sonarCloudToken + "\""
-                        + " -D\"sonar.sources=.\" -D\"sonar.verbose=true\" -D\"sonar.cfamily.build-wrapper-output=bw-output\" -D\"sonar.host.url=https://sonarcloud.io\" ";
+                        + " -D\"sonar.sources=.\" -D\"sonar.verbose=true\" -D\"sonar.cfamily.build-wrapper-output=bw-output\" -D\"sonar.host.url=" + hostURL +"\" ";
+
                 System.out.println("Final command: "+command);
                 break;
             case C_SHARP:

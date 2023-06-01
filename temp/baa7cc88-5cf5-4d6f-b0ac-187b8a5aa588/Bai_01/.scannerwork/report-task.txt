@@ -1,0 +1,7 @@
+organization=12345789876432124578754212357864213578753
+projectKey=130981a9-894a-4c9c-bd02-73953cdd0410_47789143-3fca-4745-90ec-efa761780a2d
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.41856
+dashboardUrl=https://sonarcloud.io/dashboard?id=130981a9-894a-4c9c-bd02-73953cdd0410_47789143-3fca-4745-90ec-efa761780a2d
+ceTaskId=AYh2l7ZuTrOMgLZXCFyu
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AYh2l7ZuTrOMgLZXCFyu

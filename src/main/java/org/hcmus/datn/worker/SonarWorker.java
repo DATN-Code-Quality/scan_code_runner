@@ -8,7 +8,9 @@ import org.hcmus.datn.handlers.FileHandler;
 import org.hcmus.datn.services.DatabaseService;
 import org.hcmus.datn.services.HttpService;
 import org.hcmus.datn.services.ScannerService;
+import org.hcmus.datn.services.SonarSensor;
 import org.hcmus.datn.temporal.model.response.Project;
+import org.hcmus.datn.utils.ProjectType;
 import org.hcmus.datn.utils.ScanResult;
 import org.hcmus.datn.utils.SubmissionStatus;
 import org.hcmus.datn.utils.Utils;
@@ -29,42 +31,22 @@ public class SonarWorker {
         //TODO: Replace with other config later
         //Set submission status = SCANNING
         //generate service
-        ScannerService scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"));
-        //create temp folder to handle
+        ScannerService scannerService = null;// new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"));
+        ProjectType projectType = null;
+        String token = null;
+                //generate ID
+        String projectId = ScannerService.generateID(userID, assignmentID);
+
+    //create temp folder to handle
         File tempFolder = new File("temp");
         if (!tempFolder.exists()) {
             tempFolder.mkdirs();
-        }
-        //generate ID
-        String projectId = ScannerService.generateID(userID, assignmentID);
-
-        try {
-            Project project = DatabaseService.findProjectByKey(projectId);
-            if (project == null) {
-                if (scannerService.createNewProject(projectId)) {
-                    if (scannerService.addProjectIntoGate(assignmentID, projectId)) {
-                        DatabaseService.createProject(new Project(projectId, userID, submissionID));
-                    } else {
-                        System.out.println("Cannot add project to gate");
-
-                        return false;
-                    }
-                } else {
-                    System.out.println("Error create new project");
-
-                    return false;
-                }
-
-            }
-        } catch (Exception e) {
-            System.out.println("Not found project");
-            e.printStackTrace();
-            return false;
         }
 
         try {
             String extractedFolderPath = "";
 
+            // Download and Extract File
             if (submissionURL.contains("https://github.com/")) {
                 CloneCommand cloneGitCmd = Git.cloneRepository().setURI(submissionURL).setDirectory(Paths.get("temp/" + submissionID + "/").toFile());
 
@@ -88,14 +70,35 @@ public class SonarWorker {
                 }
             }
 
-            System.out.println(extractedFolderPath);
+            projectType = SonarSensor.getTypeOfProject(extractedFolderPath);
 
+            if (projectType.equals(ProjectType.C_CPP)){
+                scannerService = new ScannerService(Config.get("SONARCLOUD_URL"));
+            }else{
+                scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"));
 
-            String token = scannerService.generateNewToken(projectId);
-            if (token.isEmpty()) {
-                throw new Exception("Error generate token Sonarqube");
+                try {
+                    scannerService.createNewProject(projectId);
+                }catch (Exception e){}
+                try {
+                    scannerService.addProjectIntoGate(assignmentID, projectId);
+                }catch (Exception e){}
+
+                token = scannerService.generateNewToken(projectId);
+                if (token.isEmpty()) {
+                    throw new Exception("Error generate token Sonarqube");
+                }
             }
-            System.out.println(extractedFolderPath);
+
+            Project project = DatabaseService.findProjectByKey(projectId);
+            if (project == null) {
+                DatabaseService.createProject(new Project(projectId, userID, submissionID, projectType));
+            }
+            else{
+                if (!projectType.equals(project.getType())){
+                    DatabaseService.updateProjectType(project.getId(), projectType);
+                }
+            }
 
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
@@ -105,9 +108,18 @@ public class SonarWorker {
                 System.out.println("Scan result: " + result);
                 if (!result.equals(ScanResult.SUCCESS)) {
                     System.err.println("Scan project result: FAILED");
+                    return false;
 
                 } else {
-                    String status = scannerService.getResult(projectId);
+                    String status = null;
+
+                    if(projectType.equals(ProjectType.C_CPP)){
+                        status = scannerService.getResultFromCloud(projectId, assignmentID);
+                    }
+                    else{
+                        status = scannerService.getResult(projectId);
+
+                    }
 
                     if (status.equals("ERROR")) {
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.FAIL);
@@ -115,9 +127,10 @@ public class SonarWorker {
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.PASS);
                     } else {
                         System.err.println("Scan project result: UNKNOWN");
-
-
+                        return false;
                     }
+
+
 
                 }
             } else {
@@ -137,16 +150,10 @@ public class SonarWorker {
 //            throw new RuntimeException(e);
         } finally {
             if (tempFolder.exists()) {
-                System.out.println(tempFolder.getPath());
                 Utils.deleteDir(tempFolder);
             }
 
         }
-        //TODO:
-
-
-        //clean up folder
-
         return true;
 
     }

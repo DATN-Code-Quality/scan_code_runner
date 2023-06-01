@@ -2,19 +2,12 @@ package org.hcmus.datn.services;
 
 
 import org.hcmus.datn.handlers.FileHandler;
+import org.hcmus.datn.utils.ProjectType;
 
 import java.io.File;
 import java.util.ArrayList;
 
-enum ProjectType{
 
-    JAVA_MAVEN,
-    JAVA_GRADLE,
-    C_SHARP,
-    C_CPP,
-    OTHERS,
-
-}
 public class SonarSensor {
     /**
      * Detect type of project like:
