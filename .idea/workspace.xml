@@ -11,7 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d925b69d-e9b0-4d12-bf36-a5122c379790" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,8 @@
       <workItem from="1687450018187" duration="1139000" />
       <workItem from="1687494142368" duration="606000" />
       <workItem from="1687628654276" duration="2639000" />
-      <workItem from="1687674024564" duration="628000" />
+      <workItem from="1687674024564" duration="5095000" />
+      <workItem from="1687696618295" duration="4115000" />
     </task>
     <servers />
   </component>

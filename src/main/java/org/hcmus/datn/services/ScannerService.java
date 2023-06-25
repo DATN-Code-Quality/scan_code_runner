@@ -22,6 +22,8 @@ import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class ScannerService {
     static String osName;
@@ -58,13 +60,26 @@ public class ScannerService {
 
     public ScanResult scanProject(String projectPath, String projectKey, String token) {
         ScanResult result = ScanResult.UNKNOWN;
+        ProcessBuilder builder = null;
         //generate command to run
-        String command=buildTerminalCommand(projectPath,projectKey,token);
+        try{
+            CompletableFuture<String> command=buildTerminalCommand(projectPath,projectKey,token);
+            CompletableFuture.allOf(command).join();
+            builder = getProcessBuilder(projectPath, command.get());
+
+            builder.redirectErrorStream(true);
+        }catch (IOException e){
+            return  ScanResult.ERROR;
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         //call terminal to run
-        ProcessBuilder builder = getProcessBuilder(projectPath, command);
-
-        builder.redirectErrorStream(true);
+//        ProcessBuilder builder = getProcessBuilder(projectPath, command);
+//
+//        builder.redirectErrorStream(true);
 
         Process p = null;
         BufferedReader r = null;
@@ -240,7 +255,7 @@ public class ScannerService {
         return statusCode == 204;
     }
 
-    private String buildTerminalCommand(String projectPath, String projectKey, String token) {
+    private CompletableFuture<String> buildTerminalCommand(String projectPath, String projectKey, String token) throws IOException {
         String command = "";
         projectType = SonarSensor.getTypeOfProject(projectPath);
         switch (projectType) {
@@ -282,6 +297,11 @@ public class ScannerService {
                         " -Dsonar.java.binaries=" + "./target/classes" +
                         " -Dsonar.host.url=" + hostURL +
                         " -Dsonar.login=" + token + " -X";
+
+                // Compile project
+                ProcessBuilder processBuilder = getProcessBuilder(projectPath, "mvn compile");
+                processBuilder.redirectErrorStream(true).start();
+
                 break;
                 //TODO: implement later
 //            case JAVA_GRADLE:
@@ -304,7 +324,7 @@ public class ScannerService {
                 System.out.println("Command: " + command);
                 break;
         }
-        return command;
+        return CompletableFuture.completedFuture(command);
     }
 
     public static String generateID(String userID, String assignmentID) {
