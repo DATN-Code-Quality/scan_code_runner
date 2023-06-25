@@ -257,8 +257,8 @@ public class ScannerService {
                 System.out.println("Wrapper command: " + command);
                 //TODO: change later and set up to config file
                 String sonarCloudOrganization = Config.get("SONARCLOUD_ORGANIZATION");
-//                String sonarCloudProjKey = "cpp_test";
-                String sonarCloudProjKey = projectKey;
+                String sonarCloudProjKey = "cpp_test";
+//                String sonarCloudProjKey = projectKey;
                 String sonarCloudToken = Config.get("SONARCLOUD_TOKEN");
 
 //                command += " && sonar-scanner -D\"sonar.organization=" + sonarCloudOrganization + "\""
