@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="scan_code_runner:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -7,14 +12,8 @@
     <list default="true" id="d925b69d-e9b0-4d12-bf36-a5122c379790" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/DatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/DatabaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/ScannerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/SonarSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/services/SonarSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/model/response/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/temporal/model/response/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/hcmus/datn/worker/SonarWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +49,9 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -101,7 +103,21 @@
       <workItem from="1685460773545" duration="3906000" />
       <workItem from="1685547474248" duration="2225000" />
       <workItem from="1685588515927" duration="4216000" />
-      <workItem from="1685592950208" duration="3941000" />
+      <workItem from="1685592950208" duration="4415000" />
+      <workItem from="1685639875074" duration="1386000" />
+      <workItem from="1685724350250" duration="1387000" />
+      <workItem from="1685779367969" duration="3910000" />
+      <workItem from="1686747289165" duration="605000" />
+      <workItem from="1687176917091" duration="20000" />
+      <workItem from="1687343810767" duration="404000" />
+      <workItem from="1687352928221" duration="2825000" />
+      <workItem from="1687414551861" duration="4344000" />
+      <workItem from="1687426020999" duration="615000" />
+      <workItem from="1687439499819" duration="1709000" />
+      <workItem from="1687450018187" duration="1139000" />
+      <workItem from="1687494142368" duration="606000" />
+      <workItem from="1687628654276" duration="2639000" />
+      <workItem from="1687674024564" duration="405000" />
     </task>
     <servers />
   </component>
