@@ -40,8 +40,12 @@ public class SonarWorker {
     //create temp folder to handle
         File tempFolder = new File("temp");
         if (!tempFolder.exists()) {
+
+            System.out.println("Generate temp folder");
             tempFolder.mkdirs();
+            System.out.println("Temp folder path: "+tempFolder.getPath());
         }
+        System.out.println("Handle file from URL: "+submissionURL);
 
         try {
             String extractedFolderPath = "";
@@ -61,7 +65,6 @@ public class SonarWorker {
             } else {
                 if (submissionURL.contains("http")) {
                     Response response = HttpService.excuteRequest(HttpService.newGetRequest(submissionURL, new HashMap<>(), new HashMap<>()));
-
                     String saveFileName = projectId + ".zip";
 
                     String courseId = DatabaseService.getCourseId(assignmentID);

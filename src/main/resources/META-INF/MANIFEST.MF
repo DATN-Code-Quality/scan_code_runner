@@ -1,3 +1,27 @@
 Manifest-Version: 1.0
 Main-Class: org.hcmus.datn.Main
+Class-Path: protobuf-java-3.21.9.jar kotlin-stdlib-1.6.20.jar json-20220
+ 320.jar jandex-2.4.2.Final.jar j2objc-annotations-1.3.jar jakarta.activ
+ ation-2.0.1.jar gson-2.10.1.jar perfmark-api-0.25.0.jar mysql-connector
+ -j-8.0.32.jar JavaEWAH-1.1.13.jar grpc-api-1.53.0.jar guava-31.1-jre.ja
+ r kotlin-stdlib-jdk8-1.5.31.jar hibernate-commons-annotations-6.0.6.Fin
+ al.jar antlr4-runtime-4.10.1.jar grpc-protobuf-1.53.0.jar jaxb-runtime-
+ 3.0.2.jar jsr305-3.0.2.jar proto-google-common-protos-2.9.0.jar checker
+ -qual-3.12.0.jar error_prone_annotations-2.11.0.jar okhttp-4.10.0.jar a
+ nnotations-13.0.jar kotlin-stdlib-jdk7-1.5.31.jar temporal-sdk-1.19.1.j
+ ar jboss-logging-3.4.3.Final.jar HdrHistogram-2.1.12.jar okio-jvm-3.0.0
+ .jar jakarta.persistence-api-3.0.0.jar temporal-serviceclient-1.19.1.ja
+ r grpc-netty-shaded-1.53.0.jar annotations-4.1.1.4.jar slf4j-api-1.7.30
+ .jar jackson-databind-2.14.2.jar protobuf-java-util-3.22.0.jar failurea
+ ccess-1.0.1.jar jackson-datatype-jdk8-2.14.2.jar grpc-stub-1.53.0.jar j
+ ackson-annotations-2.14.2.jar jaxb-core-3.0.2.jar grpc-context-1.53.0.j
+ ar txw2-3.0.2.jar hibernate-core-6.1.7.Final.jar animal-sniffer-annotat
+ ions-1.21.jar tally-core-0.13.0.jar jakarta.transaction-api-2.0.0.jar c
+ lassmate-1.5.1.jar istack-commons-runtime-4.0.1.jar byte-buddy-1.12.18.
+ jar grpc-core-1.53.0.jar grpc-services-1.53.0.jar jakarta.xml.bind-api-
+ 3.0.1.jar jackson-datatype-jsr310-2.14.2.jar kotlin-stdlib-common-1.5.3
+ 1.jar org.eclipse.jgit-6.5.0.202303070854-r.jar listenablefuture-9999.0
+ -empty-to-avoid-conflict-with-guava.jar micrometer-core-1.9.9.jar commo
+ ns-io-2.7.jar grpc-protobuf-lite-1.53.0.jar jakarta.inject-api-2.0.0.ja
+ r LatencyUtils-2.0.3.jar jackson-core-2.14.2.jar
 

@@ -1,0 +1,70 @@
+# (C) SonarSource SA, 2014-2022, info@sonarsource.com
+# All SONARSOURCE programs and content are copyright protected.
+# SONARSOURCE and SONARQUBE are trademarks of SonarSource SA. All rights are expressly reserved.
+#
+# This file is designed exclusively for use with the SONARSOURCE C / C++ / Objective-C Plugin.
+# It may not be used in connection with any other software.
+# Any other use is prohibited by law and may be grounds for immediate termination of your License.
+{
+"version":"6.41",
+"captures":[
+{
+"compiler":"clang",
+"executable":"C:\\MinGW\\bin\\g++.exe",
+"cmd": [
+"g++",
+"*.cpp"],
+"cwd":"D:\\Bai Lam\\Nam 4\\DATN\\Projects\\code_scanner\\",
+"env": [
+"=::=::\\",
+"=C:=C:\\Users\\Admins\\Downloads\\compression\\DVD_442854_assignsubmission_file_\\22127071\\22127071",
+"=D:=D:\\Bai Lam\\Nam 4\\DATN\\Projects\\code_scanner",
+"ALLUSERSPROFILE=C:\\ProgramData",
+"ANDROID_HOME=C:\\Users\\Admins\\AppData\\Local\\Android\\Sdk",
+"APPDATA=C:\\Users\\Admins\\AppData\\Roaming",
+"CommonProgramFiles=C:\\Program Files\\Common Files",
+"CommonProgramFiles(x86)=C:\\Program Files (x86)\\Common Files",
+"CommonProgramW6432=C:\\Program Files\\Common Files",
+"COMPUTERNAME=DESKTOP-7R66M1N",
+"ComSpec=C:\\Windows\\system32\\cmd.exe",
+"CYGWIN=wincmdln",
+"DriverData=C:\\Windows\\System32\\Drivers\\DriverData",
+"FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer",
+"FPS_BROWSER_USER_PROFILE_STRING=Default",
+"HOMEDRIVE=C:",
+"HOMEPATH=\\Users\\Admins",
+"IDEA_INITIAL_DIRECTORY=C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2022.3.2\\bin",
+"IntelliJ IDEA Community Edition=C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2022.3.2\\bin;",
+"JAVA_HOME=D:\\Java\\jdk-17",
+"LOCALAPPDATA=C:\\Users\\Admins\\AppData\\Local",
+"LOGONSERVER=\\\\DESKTOP-7R66M1N",
+"MOZ_PLUGIN_PATH=C:\\Program Files (x86)\\Foxit Software\\Foxit PDF Reader\\plugins\\",
+"NUMBER_OF_PROCESSORS=4",
+"OneDrive=C:\\Users\\Admins\\OneDrive",
+"OS=Windows_NT",
+"Path=C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Users\\Admins\\Downloads\\Compressed\\flutter\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files\\nodejs\\;C:\\Program Files\\PostgreSQL\\15\\bin;C:\\Program Files\\Docker\\Docker\\resources\\bin;C:\\Users\\Admins\\AppData\\Roaming\\npm;C:\\Program Files\\PuTTY\\;D:\\Bai Lam\\Nam 4\\DATN\\build-wrapper-win-x86;C:\\Program Files\\dotnet\\;C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\MSBuild\\Current\\Bin;C:\\MinGW\\bin;C:\\Users\\Admins\\AppData\\Roaming\\npm;D:\\Bai Lam\\Nam 4\\DATN\\apache-maven-3.8.7\\bin;D:\\Bai Lam\\Tools\\ngrok;C:\\Program Files\\LLVM\\bin;C:\\Users\\Admins\\AppData\\Local\\Programs\\Python\\Python310\\Scripts\\;C:\\Users\\Admins\\AppData\\Local\\Programs\\Python\\Python310\\;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\Admins\\AppData\\Local\\Microsoft\\WindowsApps;D:\\Java\\jdk-17\\bin;E:\\Bai Lam\\Nam 4\\DATN\\apache-maven-3.8.7\\bin;C:\\Users\\Admins\\Downloads\\Compressed\\flutter\\bin;C:\\Users\\Admins\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Admins\\AppData\\Roaming\\npm;C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2022.3.2\\bin;;D:\\Bai Lam\\Nam 4\\DATN\\sonar-scanner-4.8.0.2856-windows\\bin;D:\\Bai Lam\\Tools\\scrcpy-win64-v1.25;C:\\Users\\Admins\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\Admins\\.dotnet\\tools",
+"PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC",
+"PROCESSOR_ARCHITECTURE=AMD64",
+"PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 9, GenuineIntel",
+"PROCESSOR_LEVEL=6",
+"PROCESSOR_REVISION=8e09",
+"ProgramData=C:\\ProgramData",
+"ProgramFiles=C:\\Program Files",
+"ProgramFiles(x86)=C:\\Program Files (x86)",
+"ProgramW6432=C:\\Program Files",
+"PROMPT=$P$G",
+"PSModulePath=C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules",
+"PUBLIC=C:\\Users\\Public",
+"SESSIONNAME=Console",
+"SynaProgDir=Synaptics\\SynTP",
+"SystemDrive=C:",
+"SystemRoot=C:\\Windows",
+"TEMP=C:\\Users\\Admins\\AppData\\Local\\Temp",
+"TMP=C:\\Users\\Admins\\AppData\\Local\\Temp",
+"USERDOMAIN=DESKTOP-7R66M1N",
+"USERDOMAIN_ROAMINGPROFILE=DESKTOP-7R66M1N",
+"USERNAME=Admins",
+"USERPROFILE=C:\\Users\\Admins",
+"windir=C:\\Windows",
+"ZES_ENABLE_SYSMAN=1",
+"_NO_DEBUG_HEAP=1"]}]}
