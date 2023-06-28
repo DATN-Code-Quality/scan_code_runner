@@ -52,6 +52,9 @@ public class SonarWorker {
 
             // Download and Extract File
             if (submissionURL.contains("https://github.com/")) {
+                if(!submissionURL.endsWith(".git")){
+                    submissionURL = submissionID + ".git";
+                }
                 CloneCommand cloneGitCmd = Git.cloneRepository().setURI(submissionURL).setDirectory(Paths.get("temp/" + submissionID + "/").toFile());
 
                 Git git = cloneGitCmd.call();
@@ -63,12 +66,24 @@ public class SonarWorker {
                 if (submissionURL.contains("http")) {
                     Response response = HttpService.excuteRequest(HttpService.newGetRequest(submissionURL, new HashMap<>(), new HashMap<>()));
                     String saveFileName = projectId + ".zip";
-                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath(), saveFileName);
+
+                    String courseId = DatabaseService.getCourseId(assignmentID);
+                    String newLink =  Config.get("PATH") + courseId + "/" + assignmentID +  "/"+ userID;
+                    File newFolder = new File(newLink);
+                    if (!newFolder.exists()) {
+                        newFolder.mkdirs();
+                    }
+//                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), tempFolder.getPath(), saveFileName);
+                    boolean downloaded = FileHandler.getFileFromStream(response.body().byteStream(), newLink, saveFileName);
                     //unzip file (if zipped)
                     if (downloaded) {
-                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath() + "/" + submissionID);
+//                        extractedFolderPath = FileHandler.extractArchiveFile(tempFolder.getPath() + "/" + saveFileName, tempFolder.getPath() + "/" + submissionID);
+                        extractedFolderPath = FileHandler.extractArchiveFile(newLink + "/" + saveFileName, tempFolder.getPath() + "/" + submissionID);
                     }
+                    newLink = "/" +  courseId + "/" + assignmentID +  "/"+ userID + "/" + saveFileName;
+                    DatabaseService.updateSubmisionLink(submissionID, newLink);
                 } else {
+                    submissionURL = Config.get("PATH") + submissionURL;
                     extractedFolderPath = FileHandler.extractArchiveFile(submissionURL, tempFolder.getPath() + "/" + submissionID);
                 }
             }
