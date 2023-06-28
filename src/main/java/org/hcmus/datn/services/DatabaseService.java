@@ -169,6 +169,40 @@ public class DatabaseService {
         }
     }
 
+    public static void updateSubmisionLink(String submissionId, String link){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+//        Project project = null;
+        try {
+            session.getTransaction().begin();
+
+            String sql = "update " + Submission.class.getName() + " submission "
+                    + "set submission.link = :link "
+                    + "where submission.id = :submissionId";
+            Query<Project> query = session.createQuery(sql);
+
+            // Tạo đối tượng Query.
+//            submission.setStatus(status);
+//            session.save(submission);
+//            session.getTransaction().commit();
+            query.setParameter("link", link);
+            query.setParameter("submissionId", submissionId);
+
+//
+//            // Thực hiện truy vấn.
+            query.executeUpdate();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+    }
+
     public static void updateProjectType(String projectId, ProjectType type){
         SessionFactory factory = HibernateUtils.getSessionFactory();
         Session session = factory.getCurrentSession();
@@ -232,6 +266,34 @@ public class DatabaseService {
         return config;
     }
 
+    public static String getCourseId(String assignmentId){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+        String courseId = null;
+        try {
+            session.getTransaction().begin();
+
+            String sql = "Select assignment.courseId from " + Assignment.class.getName() + " assignment "
+                    + "where assignment.id = :id";
+
+            // Tạo đối tượng Query.
+            Query<String> query = session.createQuery(sql);
+            query.setParameter("id", assignmentId);
+
+            // Thực hiện truy vấn.
+            courseId = query.getSingleResultOrNull();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return courseId;
+    }
 //    @Override
 //    public void run() {
 //        try {
