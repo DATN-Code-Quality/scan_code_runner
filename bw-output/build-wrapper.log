@@ -1,0 +1,69 @@
+Wed Jun 28 00:07:02 2023: build-wrapper, version 6.41 (win-x86-64)
+Wed Jun 28 00:07:02 2023: isWow64: 0
+Wed Jun 28 00:07:02 2023: windows version: 6.2, service pack: 0.0, build number: 9200, product type: 1
+Wed Jun 28 00:07:02 2023: current directory: D:\Bai Lam\Nam 4\DATN\Projects\code_scanner
+Wed Jun 28 00:07:02 2023: cwd: <D:\Bai Lam\Nam 4\DATN\Projects\code_scanner>
+Wed Jun 28 00:07:02 2023: out-dir absolute path: <D:\Bai Lam\Nam 4\DATN\Projects\code_scanner\bw-output>
+Wed Jun 28 00:07:02 2023: command line received: <g++ *.cpp >
+Wed Jun 28 00:07:02 2023: initializing json file
+Wed Jun 28 00:07:02 2023: starting debug cycle
+Wed Jun 28 00:07:02 2023: process created with pid: 16992
+Wed Jun 28 00:07:02 2023: image path name: <C:\MinGW\bin\g++.exe>
+Wed Jun 28 00:07:02 2023: command line: <g++ *.cpp >
+Wed Jun 28 00:07:02 2023: working directory: <D:\Bai Lam\Nam 4\DATN\Projects\code_scanner\>
+Wed Jun 28 00:07:02 2023: isWow64: 1
+Wed Jun 28 00:07:02 2023: skip wildcard expansion of: D:\Bai Lam\Nam 4\DATN\Projects\code_scanner\\*.cpp
+Wed Jun 28 00:07:02 2023: env0: <=::=::\>
+Wed Jun 28 00:07:02 2023: env1: <=C:=C:\Users\Admins\Downloads\compression\DVD_442854_assignsubmission_file_\22127071\22127071>
+Wed Jun 28 00:07:02 2023: env2: <=D:=D:\Bai Lam\Nam 4\DATN\Projects\code_scanner>
+Wed Jun 28 00:07:02 2023: env3: <ALLUSERSPROFILE=C:\ProgramData>
+Wed Jun 28 00:07:02 2023: env4: <ANDROID_HOME=C:\Users\Admins\AppData\Local\Android\Sdk>
+Wed Jun 28 00:07:02 2023: env5: <APPDATA=C:\Users\Admins\AppData\Roaming>
+Wed Jun 28 00:07:02 2023: env6: <CommonProgramFiles=C:\Program Files\Common Files>
+Wed Jun 28 00:07:02 2023: env7: <CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files>
+Wed Jun 28 00:07:02 2023: env8: <CommonProgramW6432=C:\Program Files\Common Files>
+Wed Jun 28 00:07:02 2023: env9: <COMPUTERNAME=DESKTOP-7R66M1N>
+Wed Jun 28 00:07:02 2023: env10: <ComSpec=C:\Windows\system32\cmd.exe>
+Wed Jun 28 00:07:02 2023: env11: <CYGWIN=wincmdln>
+Wed Jun 28 00:07:02 2023: env12: <DriverData=C:\Windows\System32\Drivers\DriverData>
+Wed Jun 28 00:07:02 2023: env13: <FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer>
+Wed Jun 28 00:07:02 2023: env14: <FPS_BROWSER_USER_PROFILE_STRING=Default>
+Wed Jun 28 00:07:02 2023: env15: <HOMEDRIVE=C:>
+Wed Jun 28 00:07:02 2023: env16: <HOMEPATH=\Users\Admins>
+Wed Jun 28 00:07:02 2023: env17: <IDEA_INITIAL_DIRECTORY=C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3.2\bin>
+Wed Jun 28 00:07:02 2023: env18: <IntelliJ IDEA Community Edition=C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3.2\bin;>
+Wed Jun 28 00:07:02 2023: env19: <JAVA_HOME=D:\Java\jdk-17>
+Wed Jun 28 00:07:02 2023: env20: <LOCALAPPDATA=C:\Users\Admins\AppData\Local>
+Wed Jun 28 00:07:02 2023: env21: <LOGONSERVER=\\DESKTOP-7R66M1N>
+Wed Jun 28 00:07:02 2023: env22: <MOZ_PLUGIN_PATH=C:\Program Files (x86)\Foxit Software\Foxit PDF Reader\plugins\>
+Wed Jun 28 00:07:02 2023: env23: <NUMBER_OF_PROCESSORS=4>
+Wed Jun 28 00:07:02 2023: env24: <OneDrive=C:\Users\Admins\OneDrive>
+Wed Jun 28 00:07:02 2023: env25: <OS=Windows_NT>
+Wed Jun 28 00:07:02 2023: env26: <Path=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Users\Admins\Downloads\Compressed\flutter\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\PostgreSQL\15\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Admins\AppData\Roaming\npm;C:\Program Files\PuTTY\;D:\Bai Lam\Nam 4\DATN\build-wrapper-win-x86;C:\Program Files\dotnet\;C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin;C:\MinGW\bin;C:\Users\Admins\AppData\Roaming\npm;D:\Bai Lam\Nam 4\DATN\apache-maven-3.8.7\bin;D:\Bai Lam\Tools\ngrok;C:\Program Files\LLVM\bin;C:\Users\Admins\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Admins\AppData\Local\Programs\Python\Python310\;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Admins\AppData\Local\Microsoft\WindowsApps;D:\Java\jdk-17\bin;E:\Bai Lam\Nam 4\DATN\apache-maven-3.8.7\bin;C:\Users\Admins\Downloads\Compressed\flutter\bin;C:\Users\Admins\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Admins\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3.2\bin;;D:\Bai Lam\Nam 4\DATN\sonar-scanner-4.8.0.2856-windows\bin;D:\Bai Lam\Tools\scrcpy-win64-v1.25;C:\Users\Admins\AppData\Local\GitHubDesktop\bin;C:\Users\Admins\.dotnet\tools>
+Wed Jun 28 00:07:02 2023: env27: <PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC>
+Wed Jun 28 00:07:02 2023: env28: <PROCESSOR_ARCHITECTURE=AMD64>
+Wed Jun 28 00:07:02 2023: env29: <PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 9, GenuineIntel>
+Wed Jun 28 00:07:02 2023: env30: <PROCESSOR_LEVEL=6>
+Wed Jun 28 00:07:02 2023: env31: <PROCESSOR_REVISION=8e09>
+Wed Jun 28 00:07:02 2023: env32: <ProgramData=C:\ProgramData>
+Wed Jun 28 00:07:02 2023: env33: <ProgramFiles=C:\Program Files>
+Wed Jun 28 00:07:02 2023: env34: <ProgramFiles(x86)=C:\Program Files (x86)>
+Wed Jun 28 00:07:02 2023: env35: <ProgramW6432=C:\Program Files>
+Wed Jun 28 00:07:02 2023: env36: <PROMPT=$P$G>
+Wed Jun 28 00:07:02 2023: env37: <PSModulePath=C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules>
+Wed Jun 28 00:07:02 2023: env38: <PUBLIC=C:\Users\Public>
+Wed Jun 28 00:07:02 2023: env39: <SESSIONNAME=Console>
+Wed Jun 28 00:07:02 2023: env40: <SynaProgDir=Synaptics\SynTP>
+Wed Jun 28 00:07:02 2023: env41: <SystemDrive=C:>
+Wed Jun 28 00:07:02 2023: env42: <SystemRoot=C:\Windows>
+Wed Jun 28 00:07:02 2023: env43: <TEMP=C:\Users\Admins\AppData\Local\Temp>
+Wed Jun 28 00:07:02 2023: env44: <TMP=C:\Users\Admins\AppData\Local\Temp>
+Wed Jun 28 00:07:02 2023: env45: <USERDOMAIN=DESKTOP-7R66M1N>
+Wed Jun 28 00:07:02 2023: env46: <USERDOMAIN_ROAMINGPROFILE=DESKTOP-7R66M1N>
+Wed Jun 28 00:07:02 2023: env47: <USERNAME=Admins>
+Wed Jun 28 00:07:02 2023: env48: <USERPROFILE=C:\Users\Admins>
+Wed Jun 28 00:07:02 2023: env49: <windir=C:\Windows>
+Wed Jun 28 00:07:02 2023: env50: <ZES_ENABLE_SYSMAN=1>
+Wed Jun 28 00:07:02 2023: env51: <_NO_DEBUG_HEAP=1>
+Wed Jun 28 00:07:02 2023: process with pid 16992 exit with code: 1 (0x1)
+Wed Jun 28 00:07:02 2023: finalizing json file

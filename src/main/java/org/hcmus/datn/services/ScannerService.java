@@ -375,7 +375,7 @@ public class ScannerService {
         osName = FileHandler.getNameOfOS().toLowerCase();
         if (osName.contains("win")) {
             processBuilder = new ProcessBuilder(
-                    "cmd.exe", "/c", String.format("cd %s && %s", projectPath, command));
+                    "cmd.exe", "/c", String.format("cd \"%s\" && %s", projectPath, command));
             ;
         } else if (osName.contains("linux")) {
 
