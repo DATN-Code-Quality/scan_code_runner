@@ -88,7 +88,14 @@ public class SonarWorker {
                 }
             }
 
-            projectType = SonarSensor.getTypeOfProject(extractedFolderPath);
+//            projectType = SonarSensor.getTypeOfProject(extractedFolderPath);
+            StringBuilder rootPath = new StringBuilder("");
+            projectType = SonarSensor.getLanguage(extractedFolderPath, rootPath);
+
+            if(rootPath.toString().equals("")){
+                System.out.println("Call to here");
+                rootPath.append(extractedFolderPath);
+            }
 
             if (projectType.equals(ProjectType.C_CPP)){
                 scannerService = new ScannerService(Config.get("SONARCLOUD_URL"));
@@ -120,8 +127,11 @@ public class SonarWorker {
 
             //scan source code
             if (!extractedFolderPath.isEmpty()) {
-                System.out.println("Extract folder path: " + extractedFolderPath);
-                ScanResult result = scannerService.scanProject(extractedFolderPath, projectId, token);
+//                System.out.println("Extract folder path: " + extractedFolderPath);
+//                ScanResult result = scannerService.scanProject(extractedFolderPath, projectId, token);
+
+                System.out.println("Extract folder path: " + rootPath);
+                ScanResult result = scannerService.scanProject(rootPath.toString(), projectId, token);
 
                 System.out.println("Scan result: " + result);
                 if (!result.equals(ScanResult.SUCCESS)) {

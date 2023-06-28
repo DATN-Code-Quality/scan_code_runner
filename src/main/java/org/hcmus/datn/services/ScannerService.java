@@ -257,7 +257,7 @@ public class ScannerService {
 
     private CompletableFuture<String> buildTerminalCommand(String projectPath, String projectKey, String token) throws IOException {
         String command = "";
-        projectType = SonarSensor.getTypeOfProject(projectPath);
+//        projectType = SonarSensor.getTypeOfProject(projectPath);
         switch (projectType) {
             case C_CPP:
                 String build_wrapper_command = "";

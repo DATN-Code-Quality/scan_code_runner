@@ -11,7 +11,7 @@ public class SonarConfig {
     public static final String CONFIG_FILE_NAME  = "sonar-project.properties";
 
     public void writeConfigToFile(String outFolder) throws IOException {
-        File outputFolder=new File(outFolder);
+        File outputFolder=new File(outFolder.toString());
         //check folder
         if(!outputFolder.exists()||outputFolder.isFile())
         {
