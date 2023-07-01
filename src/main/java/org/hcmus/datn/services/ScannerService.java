@@ -62,7 +62,6 @@ public class ScannerService {
 
     public ScannerService(String hostURL, ProjectType projectType) {
         this.hostURL = hostURL;
-
         this.projectType = projectType;
         this.osName = FileHandler.getNameOfOS().toLowerCase();
 //        headers.put("Authorization", Credentials.basic(username, password));
@@ -270,6 +269,7 @@ public class ScannerService {
 //        projectType = SonarSensor.getTypeOfProject(projectPath);
         switch (projectType) {
             case C_CPP:
+            case C:
                 String build_wrapper_command = "";
                 if (osName.contains("win")) {
                     build_wrapper_command = "build-wrapper-win-x86-64.exe";
@@ -278,7 +278,13 @@ public class ScannerService {
                 } else if (osName.contains("mac")) {
                     build_wrapper_command = "build-wrapper-macosx-x86";
                 }
-                command += build_wrapper_command + " --out-dir bw-output g++ *.cpp";
+
+                command += build_wrapper_command + " --out-dir bw-output";
+                if (projectType == ProjectType.C) {
+                    command += " g++ *.c";
+                }else {
+                    command += " g++ *.cpp";
+                }
                 System.out.println("Wrapper command: " + command);
                 //TODO: change later and set up to config file
                 String sonarCloudOrganization = Config.get("SONARCLOUD_ORGANIZATION");

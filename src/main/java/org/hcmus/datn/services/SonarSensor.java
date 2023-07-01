@@ -101,11 +101,17 @@ public class SonarSensor {
                     rootPath.append(file.getParent().toString());
                     return ProjectType.C_SHARP;
                 }
-                if(file.getPath().endsWith(".cpp")||file.getPath().endsWith(".c"))
+                if(file.getPath().endsWith(".cpp"))
                 {
                     System.out.println(file.getPath());
                     rootPath.append(file.getParent().toString());
                     return ProjectType.C_CPP;
+                }
+                if(file.getPath().endsWith(".c"))
+                {
+                    System.out.println(file.getPath());
+                    rootPath.append(file.getParent().toString());
+                    return ProjectType.C;
                 }
                 return ProjectType.DEFAULT;
 
