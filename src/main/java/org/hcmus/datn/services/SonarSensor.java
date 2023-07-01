@@ -40,7 +40,7 @@ public class SonarSensor {
             }
         }
 
-        return ProjectType.OTHERS;
+        return ProjectType.DEFAULT;
     }
 
     public  static ProjectType getLanguage(String projectPath, StringBuilder rootPath) throws Exception {
@@ -62,19 +62,19 @@ public class SonarSensor {
                 }
                 for(int i = 0; i < files.size(); i++){
                     ProjectType type = getLanguage(files.get(i).getPath(), rootPath);
-                    if (!type.equals(ProjectType.OTHERS)){
+                    if (!type.equals(ProjectType.DEFAULT)){
                         return type;
                     }
 
                 }
                 for(int i = 0; i < directories.size(); i++){
                     ProjectType type = getLanguage(directories.get(i).getPath(), rootPath);
-                    if (!type.equals(ProjectType.OTHERS)){
+                    if (!type.equals(ProjectType.DEFAULT)){
                         return type;
                     }
                 }
 
-                return ProjectType.OTHERS;
+                return ProjectType.DEFAULT;
             }else{
                 if(file.getPath().endsWith(".zip")){
                     String extractArchiveFilePath = FileHandler.extractArchiveFile(file.getPath(), file.getParent() + "/" + file.getName().substring(0, file.getName().length() - 4));
@@ -103,7 +103,7 @@ public class SonarSensor {
                     rootPath.append(file.getParent().toString());
                     return ProjectType.C_CPP;
                 }
-                return ProjectType.OTHERS;
+                return ProjectType.DEFAULT;
 
             }
         }

@@ -49,11 +49,21 @@ public class ScannerService {
 
         headers.put("Authorization", Credentials.basic(username, password));
     }
+    public ScannerService(String hostURL, String username, String password) {
+        this.hostURL = hostURL;
+        this.username = username;
+        this.password = password;
+        //set default project type
+        this.projectType = ProjectType.DEFAULT;
+        this.osName = FileHandler.getNameOfOS().toLowerCase();
+
+        headers.put("Authorization", Credentials.basic(username, password));
+    }
 
     public ScannerService(String hostURL) {
         this.hostURL = hostURL;
 
-        this.projectType = ProjectType.C_CPP;
+        this.projectType = ProjectType.DEFAULT;
         this.osName = FileHandler.getNameOfOS().toLowerCase();
 //        headers.put("Authorization", Credentials.basic(username, password));
     }
