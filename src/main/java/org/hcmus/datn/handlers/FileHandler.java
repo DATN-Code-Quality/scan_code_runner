@@ -1,7 +1,9 @@
 package org.hcmus.datn.handlers;
 
 import java.io.*;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -95,6 +97,7 @@ public class FileHandler {
         try {
             ZipInputStream zis = new ZipInputStream(new FileInputStream(zipPath));
             ZipEntry zipEntry = zis.getNextEntry();
+
             while (zipEntry != null) {
                 File newFile = newFile(destDir, zipEntry);
                 if(filePath.isEmpty())
@@ -134,13 +137,16 @@ public class FileHandler {
         return filePath;
     }
     public static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
-        File destFile = new File(destinationDir, zipEntry.getName());
+        String fileName = convertString(zipEntry.getName());
 
+//        File destFile = new File(destinationDir, zipEntry.getName());
+
+        File destFile = new File(destinationDir, fileName);
         String destDirPath = destinationDir.getCanonicalPath();
         String destFilePath = destFile.getCanonicalPath();
 
         if (!destFilePath.startsWith(destDirPath + File.separator)) {
-            throw new IOException("Entry is outside of the target dir: " + zipEntry.getName());
+            throw new IOException("Entry is outside of the target dir: " + fileName);
         }
         return destFile;
     }
@@ -148,6 +154,13 @@ public class FileHandler {
     public static String getNameOfOS()
     {
         return System.getProperty("os.name");
+    }
+
+
+    public static String convertString(String str){
+        String nfdNormalizedString = Normalizer.normalize( str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return  pattern.matcher(nfdNormalizedString).replaceAll("");
     }
 
 }

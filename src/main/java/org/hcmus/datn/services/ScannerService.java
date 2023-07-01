@@ -39,12 +39,12 @@ public class ScannerService {
 
     private HashMap<String, String> headers = new HashMap<>();
 
-    public ScannerService(String hostURL, String username, String password) {
+    public ScannerService(String hostURL, String username, String password, ProjectType projectType) {
         this.hostURL = hostURL;
         this.username = username;
         this.password = password;
         //set default project type
-        this.projectType = ProjectType.OTHERS;
+        this.projectType = projectType;
         this.osName = FileHandler.getNameOfOS().toLowerCase();
 
         headers.put("Authorization", Credentials.basic(username, password));
@@ -257,7 +257,7 @@ public class ScannerService {
 
     private CompletableFuture<String> buildTerminalCommand(String projectPath, String projectKey, String token) throws IOException {
         String command = "";
-        projectType = SonarSensor.getTypeOfProject(projectPath);
+//        projectType = SonarSensor.getTypeOfProject(projectPath);
         switch (projectType) {
             case C_CPP:
                 String build_wrapper_command = "";
