@@ -134,7 +134,8 @@ public class FileHandler {
             return "";
         }
 
-        return filePath;
+//        return filePath;
+        return desPath;
     }
     public static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
         String fileName = convertString(zipEntry.getName());

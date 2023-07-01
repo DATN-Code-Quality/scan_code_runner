@@ -86,30 +86,25 @@ public class SonarSensor {
                 }
                 if(file.getPath().contains("pom.xml"))
                 {
-                    System.out.println(file.getPath());
                     rootPath.append(file.getParent().toString());
                     return ProjectType.JAVA_MAVEN;
                 }
                 if(file.getPath().endsWith("build.gradle")){
-                    System.out.println(file.getPath());
                     rootPath.append(file.getParent().toString());
                     return ProjectType.JAVA_GRADLE;
                 }
                 if(file.getPath().endsWith(".csproj"))
                 {
-                    System.out.println(file.getPath());
                     rootPath.append(file.getParent().toString());
                     return ProjectType.C_SHARP;
                 }
                 if(file.getPath().endsWith(".cpp"))
                 {
-                    System.out.println(file.getPath());
                     rootPath.append(file.getParent().toString());
                     return ProjectType.C_CPP;
                 }
                 if(file.getPath().endsWith(".c"))
                 {
-                    System.out.println(file.getPath());
                     rootPath.append(file.getParent().toString());
                     return ProjectType.C;
                 }
