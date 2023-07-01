@@ -288,9 +288,9 @@ public class ScannerService {
                 System.out.println("Final command: "+command);
                 break;
             case C_SHARP:
-                command += "dotnet sonarscanner begin /k:\"" + projectKey + "\" /d:sonar.host.url=\"" + hostURL + "\"  /d:sonar.login=\"" + token + "\" ";
+                command += "dotnet-sonarscanner begin /k:\"" + projectKey + "\" /d:sonar.host.url=\"" + hostURL + "\"  /d:sonar.login=\"" + token + "\" ";
                 command += "&& dotnet build ";
-                command += "&& dotnet sonarscanner end /d:sonar.login=\"" + token + "\"";
+                command += "&& dotnet-sonarscanner end /d:sonar.login=\"" + token + "\"";
                 break;
             case JAVA_MAVEN:
                 command = "mvn sonar:sonar" + "  -Dsonar.projectKey=" + projectKey +
