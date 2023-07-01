@@ -286,6 +286,11 @@ public class ScannerService {
                     command += " g++ *.cpp";
                 }
                 System.out.println("Wrapper command: " + command);
+
+                //build project
+                // Compile project
+                ProcessBuilder processBuilder = getProcessBuilder(projectPath, command);
+                processBuilder.redirectErrorStream(true).start();
                 //TODO: change later and set up to config file
                 String sonarCloudOrganization = Config.get("SONARCLOUD_ORGANIZATION");
 //                String sonarCloudProjKey = "cpp_test";
@@ -296,7 +301,7 @@ public class ScannerService {
 //                        + " -D\"sonar.projectKey=" + sonarCloudProjKey + "\""
 //                        + " -D\"sonar.login=" + sonarCloudToken + "\""
 //                        + " -D\"sonar.sources=.\" -D\"sonar.verbose=true\" -D\"sonar.cfamily.build-wrapper-output=bw-output\" -D\"sonar.host.url=https://sonarcloud.io\" ";
-                command += " && sonar-scanner -D\"sonar.organization=" + sonarCloudOrganization + "\""
+                command = " sonar-scanner -D\"sonar.organization=" + sonarCloudOrganization + "\""
                         + " -D\"sonar.projectKey=" + sonarCloudProjKey + "\""
                         + " -D\"sonar.login=" + sonarCloudToken + "\""
                         + " -D\"sonar.sources=.\" -D\"sonar.verbose=true\" -D\"sonar.cfamily.build-wrapper-output=bw-output\" -D\"sonar.host.url=" + hostURL +"\" ";
@@ -315,7 +320,7 @@ public class ScannerService {
                         " -Dsonar.login=" + token + " -X";
 
                 // Compile project
-                ProcessBuilder processBuilder = getProcessBuilder(projectPath, "mvn compile");
+                processBuilder = getProcessBuilder(projectPath, "mvn compile");
                 processBuilder.redirectErrorStream(true).start();
 
                 break;
