@@ -97,8 +97,8 @@ public class SonarWorker {
                 rootPath.append(extractedFolderPath);
             }
 
-            if (projectType.equals(ProjectType.C_CPP)){
-                scannerService = new ScannerService(Config.get("SONARCLOUD_URL"), ProjectType.C_CPP);
+            if (projectType.equals(ProjectType.C_CPP) || projectType.equals(ProjectType.C)){
+                scannerService = new ScannerService(Config.get("SONARCLOUD_URL"), projectType);
             }else{
                 scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"), projectType);
 
@@ -141,7 +141,7 @@ public class SonarWorker {
                 } else {
                     String status = null;
 
-                    if(projectType.equals(ProjectType.C_CPP)){
+                    if(projectType.equals(ProjectType.C_CPP) || projectType.equals(ProjectType.C)){
                         status = scannerService.getResultFromCloud(projectId, assignmentID);
                     }
                     else{
