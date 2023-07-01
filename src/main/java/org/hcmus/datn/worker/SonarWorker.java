@@ -98,7 +98,7 @@ public class SonarWorker {
             }
 
             if (projectType.equals(ProjectType.C_CPP)){
-                scannerService = new ScannerService(Config.get("SONARCLOUD_URL"));
+                scannerService = new ScannerService(Config.get("SONARCLOUD_URL"), ProjectType.C_CPP);
             }else{
                 scannerService = new ScannerService(Config.get("SONARQUBE_HOST"), Config.get("SONARQUBE_USERNAME"), Config.get("SONARQUBE_PASSWORD"), projectType);
 

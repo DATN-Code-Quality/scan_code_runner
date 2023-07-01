@@ -60,10 +60,10 @@ public class ScannerService {
         headers.put("Authorization", Credentials.basic(username, password));
     }
 
-    public ScannerService(String hostURL) {
+    public ScannerService(String hostURL, ProjectType projectType) {
         this.hostURL = hostURL;
 
-        this.projectType = ProjectType.DEFAULT;
+        this.projectType = projectType;
         this.osName = FileHandler.getNameOfOS().toLowerCase();
 //        headers.put("Authorization", Credentials.basic(username, password));
     }

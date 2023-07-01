@@ -34,9 +34,13 @@ public class SonarSensor {
             {
                 return ProjectType.C_SHARP;
             }
-            if(f.getPath().endsWith(".cpp")||f.getPath().endsWith(".c"))
+            if(f.getPath().endsWith(".cpp"))
             {
                 return ProjectType.C_CPP;
+            }
+            if(f.getPath().endsWith(".c"))
+            {
+                return ProjectType.C;
             }
         }
 

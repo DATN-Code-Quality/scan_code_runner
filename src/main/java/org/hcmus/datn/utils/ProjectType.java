@@ -6,6 +6,7 @@ public enum ProjectType{
     JAVA_GRADLE,
     C_SHARP,
     C_CPP,
+    C,
     DEFAULT,
 
 }
