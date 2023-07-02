@@ -252,6 +252,81 @@ public class ScannerService {
         return "";
     }
 
+    public String getResult(String projectKey, String submissionId, String assignmentId) throws InterruptedException {
+        Thread.sleep(5000);
+        HashMap<String, String> params = new HashMap<>();
+        int p = 1;
+        int ps = 1000;
+
+        params.put("component", projectKey);
+        params.put("metrics", "bugs,vulnerabilities,code_smells,duplicated_lines_density,coverage,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations");
+        params.put("p", String.valueOf(p));
+        params.put("ps", String.valueOf(ps));
+
+        Request getResult = HttpService.newGetRequest(
+                hostURL + "/api/measures/search_history", params, headers);
+        Response res = HttpService.excuteRequest(getResult);
+
+        int statusCode = res.code();
+        try {
+            if (statusCode == 200) {
+                JSONObject configObj = new JSONObject(DatabaseService.getConfigOfAssignment(assignmentId));
+                JSONObject projectStatusObj = new JSONObject(res.body().string());
+
+                int total = projectStatusObj.getJSONObject("paging").getInt("total");
+
+                if(p * ps < total)
+                {
+                    params.put("p", String.valueOf(total / ps + (total % ps == 0 ? 0 : 1 )));
+                    params.put("ps", String.valueOf(ps));
+
+                    getResult = HttpService.newGetRequest(
+                            hostURL + "/api/measures/search_history", params, headers);
+                    res = HttpService.excuteRequest(getResult);
+                    projectStatusObj = new JSONObject(res.body().string());
+                }
+
+                JSONArray measures = projectStatusObj.getJSONArray("measures");
+
+                HashMap<String, Double> measuresMap = new HashMap<>();
+                String status = "OK";
+
+                for(int i = 0; i < measures.length(); i++){
+                    JSONArray history = measures.getJSONObject(i).getJSONArray("history");
+
+                    Double value = history.getJSONObject(history.length() -1).getDouble("value");
+                    String metric = measures.getJSONObject(i).getString("metric");
+                    measuresMap.put(metric, value);
+                    try {
+                        if(configObj.get(metric) != null ){
+                            if( (configObj.getDouble(metric) > value && metric.equals("coverage")) || (configObj.getDouble(metric) < value && !metric.equals("coverage"))){
+                                status = "ERROR";
+                            }
+                        }
+                    }catch (Exception e){}
+                }
+
+                Result result = new Result(submissionId,measuresMap);
+                Result savedResult = DatabaseService.getResultBySubmisisonId(submissionId);
+                if(savedResult == null){
+                    DatabaseService.createResult(result);
+                }
+                else{
+                    DatabaseService.updateResult(result);
+                }
+
+                return status;
+            }
+            else{
+                System.out.println(res);
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+        return "";
+    }
+
     public boolean addProjectIntoGate(String gateName, String projectKey) {
         HashMap<String, String> params = new HashMap<>();
         params.put("gateName", gateName);
@@ -362,33 +437,33 @@ public class ScannerService {
     }
 
 
-    public Result getResultOverview(String projectId, String projectKey) throws IOException {
-        Result result = new Result(projectId);
-
-        Map<String, Integer> map = new HashMap<>();
-
-        HashMap<String, String> params = new HashMap<>();
-        params.put("componentKeys", projectKey);
-
-        for (int i = 0; i < Constant.ISSUE_TYPES.length; i++) {
-            params.put("types", Constant.ISSUE_TYPES[i]);
-
-            Request getResult = HttpService.newGetRequest(Constant.GET_RESULT_API, params, headers);
-            System.out.println(getResult);
-            Response res = HttpService.excuteRequest(getResult);
-
-            int statusCode = res.code();
-            if (statusCode == 200) {
-                JsonObject obj = JsonUtils.toObject(res.body().string());
-                map.put(Constant.ISSUE_TYPES[i], obj.get("total").getAsInt());
-            }
-        }
-        result.setSmells(map.get(Constant.ISSUE_TYPES[0]));
-        result.setBugs(map.get(Constant.ISSUE_TYPES[1]));
-        result.setVulnerabilities(map.get(Constant.ISSUE_TYPES[2]));
-
-        return result;
-    }
+//    public Result getResultOverview(String projectId, String projectKey) throws IOException {
+//        Result result = new Result(projectId);
+//
+//        Map<String, Integer> map = new HashMap<>();
+//
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("componentKeys", projectKey);
+//
+//        for (int i = 0; i < Constant.ISSUE_TYPES.length; i++) {
+//            params.put("types", Constant.ISSUE_TYPES[i]);
+//
+//            Request getResult = HttpService.newGetRequest(Constant.GET_RESULT_API, params, headers);
+//            System.out.println(getResult);
+//            Response res = HttpService.excuteRequest(getResult);
+//
+//            int statusCode = res.code();
+//            if (statusCode == 200) {
+//                JsonObject obj = JsonUtils.toObject(res.body().string());
+//                map.put(Constant.ISSUE_TYPES[i], obj.get("total").getAsInt());
+//            }
+//        }
+//        result.setSmells(map.get(Constant.ISSUE_TYPES[0]));
+//        result.setBugs(map.get(Constant.ISSUE_TYPES[1]));
+//        result.setVulnerabilities(map.get(Constant.ISSUE_TYPES[2]));
+//
+//        return result;
+//    }
 
     private static ProcessBuilder getProcessBuilder(String projectPath, String command) {
         ProcessBuilder processBuilder = null;

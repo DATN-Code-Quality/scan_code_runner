@@ -4,6 +4,7 @@ import org.hcmus.datn.temporal.model.request.Submission;
 import org.hcmus.datn.temporal.model.response.Assignment;
 import org.hcmus.datn.temporal.model.response.Project;
 import org.hcmus.datn.temporal.model.response.ResponseObject;
+import org.hcmus.datn.temporal.model.response.Result;
 import org.hcmus.datn.utils.HibernateUtils;
 import org.hcmus.datn.utils.ProjectType;
 import org.hcmus.datn.utils.SubmissionStatus;
@@ -294,6 +295,116 @@ public class DatabaseService {
         }
         return courseId;
     }
+
+
+    public static Result getResultBySubmisisonId(String submissionId){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+        Result result = null;
+        try {
+            session.getTransaction().begin();
+
+            String sql = "Select result from " + Result.class.getName() + " result "
+                    + "where result.submissionId = :submissionId";
+
+            // Tạo đối tượng Query.
+            Query<Result> query = session.createQuery(sql);
+            query.setParameter("submissionId", submissionId);
+
+            // Thực hiện truy vấn.
+            result = query.getSingleResultOrNull();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return result;
+    }
+    public static Result createResult(Result result) {
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+
+        Session session = factory.getCurrentSession();
+        Result savedResult = null;
+
+        try {
+            session.getTransaction().begin();
+
+            result.setCreatedAt(new Date());
+            result.setUpdatedAt(new Date());
+
+            session.save(result);
+            session.getTransaction().commit();
+
+            savedResult = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+
+        return savedResult;
+    }
+
+    public static void updateResult(Result result){
+        SessionFactory factory = HibernateUtils.getSessionFactory();
+        Session session = factory.getCurrentSession();
+
+        try {
+            session.getTransaction().begin();
+
+            String sql = "update " + Result.class.getName() + " result "
+                    + "set result.total = :total , "
+                    + "result.codeSmell = :codeSmell , "
+                    + "result.bug = :bug , "
+                    + "result.vulnerabilities = :vulnerabilities , "
+                    + "result.blocker = :blocker , "
+                    + "result.critical = :critical , "
+                    + "result.major = :major , "
+                    + "result.minor = :minor , "
+                    + "result.info = :info , "
+                    + "result.duplicatedLinesDensity = :duplicatedLinesDensity , "
+                    + "result.coverage = :coverage , "
+                    + "result.updatedAt = :updatedAt "
+
+                    + "where result.submissionId = :submissionId";
+            Query<Project> query = session.createQuery(sql);
+
+            query.setParameter("total", result.getTotal());
+            query.setParameter("codeSmell", result.getCodeSmell());
+            query.setParameter("bug", result.getBug());
+            query.setParameter("vulnerabilities", result.getVulnerabilities());
+            query.setParameter("blocker", result.getBlocker());
+            query.setParameter("critical", result.getCritical());
+            query.setParameter("major", result.getMajor());
+            query.setParameter("minor", result.getMinor());
+            query.setParameter("info", result.getInfo());
+            query.setParameter("duplicatedLinesDensity", result.getDuplicatedLinesDensity());
+            query.setParameter("coverage", result.getCoverage());
+            query.setParameter("updatedAt", new Date());
+            query.setParameter("submissionId", result.getSubmissionId());
+
+
+//            // Thực hiện truy vấn.
+            query.executeUpdate();
+
+//             Commit dữ liệu
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+    }
+
+
+
 //    @Override
 //    public void run() {
 //        try {

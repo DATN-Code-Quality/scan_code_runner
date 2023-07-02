@@ -139,15 +139,15 @@ public class SonarWorker {
                     return false;
 
                 } else {
-                    String status = null;
+                    String status = scannerService.getResult(projectId, submissionID, assignmentID);
 
-                    if(projectType.equals(ProjectType.C_CPP) || projectType.equals(ProjectType.C)){
-                        status = scannerService.getResultFromCloud(projectId, assignmentID);
-                    }
-                    else{
-                        status = scannerService.getResult(projectId);
-
-                    }
+//                    if(projectType.equals(ProjectType.C_CPP) || projectType.equals(ProjectType.C)){
+//                        status = scannerService.getResultFromCloud(projectId, assignmentID);
+//                    }
+//                    else{
+//                        status = scannerService.getResult(projectId);
+//
+//                    }
 
                     if (status.equals("ERROR")) {
                         DatabaseService.updateSubmisionStatus(submissionID, SubmissionStatus.FAIL);
