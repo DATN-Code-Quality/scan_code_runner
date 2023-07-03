@@ -49,6 +49,19 @@ public class Result {
     private float duplicatedLinesDensity;
     @Column(name = "`coverage`")
     private float coverage;
+
+    @Column(name = "`reliabilityRating`")
+    private float reliabilityRating;
+
+    @Column(name = "`securityRating`")
+    private float securityRating;
+
+    @Column(name = "`sqaleRating`")
+    private float sqaleRating;
+
+    @Column(name = "`ncloc`")
+    private int ncloc;
+
     @Column(name = "`createdAt`")
     private Date createdAt;
     @Column(name = "`updatedAt`")
@@ -72,43 +85,15 @@ public class Result {
             this.info = metricMap.get("info_violations").intValue() ;
             this.duplicatedLinesDensity = metricMap.get("duplicated_lines_density").floatValue() ;
             this.coverage = metricMap.get("coverage").floatValue() ;
+
+            this.reliabilityRating = metricMap.get("reliability_rating").floatValue() ;
+            this.securityRating = metricMap.get("security_rating").floatValue() ;
+            this.sqaleRating = metricMap.get("sqale_rating").floatValue() ;
+            this.ncloc = metricMap.get("ncloc").intValue() ;
         }
         catch (Exception e){}
     }
 
-    public Result(String id, String submissionId, int total, int codeSmell, int bug, int vulnerabilities, int blocker, int critical, int major, int minor, int info, float duplicatedLinesDensity, float coverage, Date createdAt, Date updatedAt, Date deletedAt) {
-        this.id = id;
-        this.submissionId = submissionId;
-        this.total = total;
-        this.codeSmell = codeSmell;
-        this.bug = bug;
-        this.vulnerabilities = vulnerabilities;
-        this.blocker = blocker;
-        this.critical = critical;
-        this.major = major;
-        this.minor = minor;
-        this.info = info;
-        this.duplicatedLinesDensity = duplicatedLinesDensity;
-        this.coverage = coverage;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.deletedAt = deletedAt;
-    }
-
-    public Result(String submissionId, int total, int codeSmell, int bug, int vulnerabilities, int blocker, int critical, int major, int minor, int info, float duplicatedLinesDensity, float coverage) {
-        this.submissionId = submissionId;
-        this.total = total;
-        this.codeSmell = codeSmell;
-        this.bug = bug;
-        this.vulnerabilities = vulnerabilities;
-        this.blocker = blocker;
-        this.critical = critical;
-        this.major = major;
-        this.minor = minor;
-        this.info = info;
-        this.duplicatedLinesDensity = duplicatedLinesDensity;
-        this.coverage = coverage;
-    }
 
     public String getId() {
         return id;
@@ -236,5 +221,37 @@ public class Result {
 
     public void setDeletedAt(Date deletedAt) {
         this.deletedAt = deletedAt;
+    }
+
+    public float getReliabilityRating() {
+        return reliabilityRating;
+    }
+
+    public void setReliabilityRating(float reliabilityRating) {
+        this.reliabilityRating = reliabilityRating;
+    }
+
+    public float getSecurityRating() {
+        return securityRating;
+    }
+
+    public void setSecurityRating(float securityRating) {
+        this.securityRating = securityRating;
+    }
+
+    public float getSqaleRating() {
+        return sqaleRating;
+    }
+
+    public void setSqaleRating(float sqaleRating) {
+        this.sqaleRating = sqaleRating;
+    }
+
+    public int getNcloc() {
+        return ncloc;
+    }
+
+    public void setNcloc(int ncloc) {
+        this.ncloc = ncloc;
     }
 }

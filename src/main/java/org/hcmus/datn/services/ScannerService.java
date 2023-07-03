@@ -259,7 +259,7 @@ public class ScannerService {
         int ps = 1000;
 
         params.put("component", projectKey);
-        params.put("metrics", "bugs,vulnerabilities,code_smells,duplicated_lines_density,coverage,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations");
+        params.put("metrics", "bugs,vulnerabilities,code_smells,duplicated_lines_density,coverage,violations,blocker_violations,critical_violations,major_violations,minor_violations,info_violations,reliability_rating,security_rating,sqale_rating,ncloc");
         params.put("p", String.valueOf(p));
         params.put("ps", String.valueOf(ps));
 
