@@ -253,7 +253,7 @@ public class ScannerService {
     }
 
     public String getResult(String projectKey, String submissionId, String assignmentId) throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         HashMap<String, String> params = new HashMap<>();
         int p = 1;
         int ps = 1000;
@@ -306,7 +306,9 @@ public class ScannerService {
                     }catch (Exception e){}
                 }
 
-                Result result = new Result(submissionId,measuresMap);
+                String ruleMap = this.rulesStatistic(projectKey);
+
+                Result result = new Result(submissionId,measuresMap, ruleMap);
                 Result savedResult = DatabaseService.getResultBySubmisisonId(submissionId);
                 if(savedResult == null){
                     DatabaseService.createResult(result);
@@ -325,6 +327,36 @@ public class ScannerService {
             throw new RuntimeException(e);
         }
         return "";
+    }
+
+    public String rulesStatistic(String projectKey) {
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("componentKeys", projectKey);
+        params.put("p", "1");
+        params.put("ps", "1");
+        params.put("facets", "rules");
+
+        Request getResult = HttpService.newGetRequest(
+                hostURL + "/api/issues/search", params, headers);
+        Response res = HttpService.excuteRequest(getResult);
+
+        int statusCode = res.code();
+        HashMap<String, Integer> mapRules = new HashMap<>();
+
+        try {
+            if (statusCode == 200) {
+                JSONObject projectStatusObj = new JSONObject(res.body().string());
+                JSONArray rules = projectStatusObj.getJSONArray("facets").getJSONObject(0).getJSONArray("values");
+
+                for(int i = 0; i < rules.length(); i++){
+                    mapRules.put(rules.getJSONObject(i).getString("val"), rules.getJSONObject(i).getInt("count"));
+                }
+            }
+        } catch (Exception e) {
+        }
+
+        return mapRules.toString();
     }
 
     public boolean addProjectIntoGate(String gateName, String projectKey) {

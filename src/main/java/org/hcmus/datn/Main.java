@@ -20,6 +20,9 @@ public class Main {
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         ScannerWorker scannerWorker = new ScannerWorker();
         scannerWorker.setupAndStart();
+
+//        ScannerService scannerService = new ScannerService("http://14.225.211.60:9000", "admin", "123456", ProjectType.JAVA_MAVEN);
+//        System.out.println(scannerService.rulesStatistic("edb9d406-5ceb-495a-99d7-3d1ab4ecff20_c31c6390-4a7d-497f-9851-6d1594950503"));
 //        StringBuilder rootPath = new StringBuilder();
 //        try{
 //            ProjectType type = SonarSensor.getLanguage("C:\\Users\\Admin\\OneDrive - VNU-HCMUS\\Desktop\\code\\test\\1753021_025_112 - Copy", rootPath);

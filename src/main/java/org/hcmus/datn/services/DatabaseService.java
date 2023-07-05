@@ -370,6 +370,11 @@ public class DatabaseService {
                     + "result.info = :info , "
                     + "result.duplicatedLinesDensity = :duplicatedLinesDensity , "
                     + "result.coverage = :coverage , "
+                    + "result.reliabilityRating = :reliabilityRating , "
+                    + "result.securityRating = :securityRating , "
+                    + "result.sqaleRating = :sqaleRating , "
+                    + "result.ncloc = :ncloc , "
+                    + "result.rules = :rules , "
                     + "result.updatedAt = :updatedAt "
 
                     + "where result.submissionId = :submissionId";
@@ -386,6 +391,11 @@ public class DatabaseService {
             query.setParameter("info", result.getInfo());
             query.setParameter("duplicatedLinesDensity", result.getDuplicatedLinesDensity());
             query.setParameter("coverage", result.getCoverage());
+            query.setParameter("reliabilityRating", result.getReliabilityRating());
+            query.setParameter("securityRating", result.getSecurityRating());
+            query.setParameter("sqaleRating", result.getSqaleRating());
+            query.setParameter("ncloc", result.getNcloc());
+            query.setParameter("rules", result.getRules());
             query.setParameter("updatedAt", new Date());
             query.setParameter("submissionId", result.getSubmissionId());
 

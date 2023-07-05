@@ -62,6 +62,9 @@ public class Result {
     @Column(name = "`ncloc`")
     private int ncloc;
 
+    @Column(name = "`rules`")
+    private String rules;
+
     @Column(name = "`createdAt`")
     private Date createdAt;
     @Column(name = "`updatedAt`")
@@ -71,7 +74,7 @@ public class Result {
     public Result() {
     }
 
-    public Result(String submissionId, HashMap<String, Double> metricMap) {
+    public Result(String submissionId, HashMap<String, Double> metricMap, String ruleMap) {
         this.submissionId = submissionId;
         try {
             this.total = metricMap.get("violations").intValue() ;
@@ -90,6 +93,7 @@ public class Result {
             this.securityRating = metricMap.get("security_rating").floatValue() ;
             this.sqaleRating = metricMap.get("sqale_rating").floatValue() ;
             this.ncloc = metricMap.get("ncloc").intValue() ;
+            this.rules = ruleMap;
         }
         catch (Exception e){}
     }
@@ -253,5 +257,13 @@ public class Result {
 
     public void setNcloc(int ncloc) {
         this.ncloc = ncloc;
+    }
+
+    public String getRules() {
+        return rules;
+    }
+
+    public void setRules(String rules) {
+        this.rules = rules;
     }
 }
